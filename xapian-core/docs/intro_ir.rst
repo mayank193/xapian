@@ -429,6 +429,7 @@ decreasing :math:`W(d)` value, we get a ranked list called the *match set*, or
 
 .. math::
      item 0:\:D_0, W(D_0)
+<<<<<<< .merge_file_Ax7SLA
 
 .. math::
      item 1:\:D_1, W(D_1)
@@ -442,6 +443,21 @@ decreasing :math:`W(d)` value, we get a ranked list called the *match set*, or
            . }
      
 .. math:: 
+=======
+
+.. math::
+     item 1:\:D_1, W(D_1)
+
+.. math::
+     item 2:\:D_2, W(D_2)
+
+.. math::
+     \text{. \\
+           . \\
+           . }
+
+.. math::
+>>>>>>> .merge_file_ZMrTNB
     item K:\:D_K, W(D_K)
 
 where :math:`W(D_j) \ge W(D_i)` if j > i.
@@ -509,15 +525,26 @@ The ESet then has this form,
 
 .. math::
      item 2:\:t_2, W(t_2)
+<<<<<<< .merge_file_Ax7SLA
      
+=======
+
+>>>>>>> .merge_file_ZMrTNB
 .. math::
      \text{. \\
            . \\
            . }
+<<<<<<< .merge_file_Ax7SLA
      
 .. math:: 
     item K:\:t_K, W(t_K)
 
+=======
+
+.. math::
+    item K:\:t_K, W(t_K)
+
+>>>>>>> .merge_file_ZMrTNB
 where :math:`W(t_j) \ge W(t_i)` if j > i.
 
 Since the main function of the ESet is to find new terms to be added to

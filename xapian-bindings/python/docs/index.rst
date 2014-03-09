@@ -11,7 +11,11 @@ Python bindings based on the simple examples from ``xapian-examples``:
 `simpleindex.py <examples/simpleindex.py>`_,
 `simplesearch.py <examples/simplesearch.py>`_,
 `simpleexpand.py <examples/simpleexpand.py>`_,
+<<<<<<< .merge_file_up5bmn
 There's also 
+=======
+There's also
+>>>>>>> .merge_file_nslKHk
 `simplematchdecider.py <examples/simplematchdecider.py>`_,
 which shows how to define a MatchDecider in Python.
 
@@ -98,11 +102,19 @@ iterate over terms in a Document object):
 +----------------------+------------------------------------------+---------------------------------------+-----------------+
 |``Database``          | ``allterms()`` (also as default iterator)| ``allterms_begin()``                  | ``TermIter``    |
 +----------------------+------------------------------------------+---------------------------------------+-----------------+
+<<<<<<< .merge_file_up5bmn
 |``Database``          | ``postlist(tname)``                      | ``postlist_begin(tname)``             | ``PostingIter`` | 
 +----------------------+------------------------------------------+---------------------------------------+-----------------+
 |``Database``          | ``termlist(docid)``                      | ``termlist_begin(docid)``             | ``TermIter``    |
 +----------------------+------------------------------------------+---------------------------------------+-----------------+
 |``Database``          | ``positionlist(docid, tname)``           | ``positionlist_begin(docid, tname)``  | ``PositionIter``|  
+=======
+|``Database``          | ``postlist(tname)``                      | ``postlist_begin(tname)``             | ``PostingIter`` |
++----------------------+------------------------------------------+---------------------------------------+-----------------+
+|``Database``          | ``termlist(docid)``                      | ``termlist_begin(docid)``             | ``TermIter``    |
++----------------------+------------------------------------------+---------------------------------------+-----------------+
+|``Database``          | ``positionlist(docid, tname)``           | ``positionlist_begin(docid, tname)``  | ``PositionIter``|
+>>>>>>> .merge_file_nslKHk
 +----------------------+------------------------------------------+---------------------------------------+-----------------+
 |``Database``          | ``metadata_keys(prefix)``                | ``metadata_keys(prefix)``             | ``TermIter``    |
 +----------------------+------------------------------------------+---------------------------------------+-----------------+
@@ -244,11 +256,19 @@ equivalent property names are as follows:
 
 
 +------------------------+---------------+-----------+
+<<<<<<< .merge_file_up5bmn
 |   Index                | Property name | Contents  |                                                                
 +========================+===============+===========+
 | ``xapian.ESET_TNAME``  | term          | Term name |                                                              
 +------------------------+---------------+-----------+
 | ``xapian.ESET_WT``     | weight        |  Weight   |                                                               
+=======
+|   Index                | Property name | Contents  |
++========================+===============+===========+
+| ``xapian.ESET_TNAME``  | term          | Term name |
++------------------------+---------------+-----------+
+| ``xapian.ESET_WT``     | weight        |  Weight   |
+>>>>>>> .merge_file_nslKHk
 +------------------------+---------------+-----------+
 
 
@@ -282,7 +302,11 @@ a mixture of terms and queries if you wish.  For example:
 
 
 ::
+<<<<<<< .merge_file_up5bmn
   
+=======
+
+>>>>>>> .merge_file_nslKHk
   subq = xapian.Query(xapian.Query.OP_AND, "hello", "world")
   q = xapian.Query(xapian.Query.OP_AND, [subq, "foo", xapian.Query("bar", 2)])
 
@@ -303,7 +327,11 @@ __call__ method that will do the work. The simplest example (which does nothing
 useful) would be as follows:
 
 ::
+<<<<<<< .merge_file_up5bmn
   
+=======
+
+>>>>>>> .merge_file_nslKHk
   class mymatchdecider(xapian.MatchDecider):
     def __init__(self):
       xapian.MatchDecider.__init__(self)
@@ -332,7 +360,11 @@ a 3-tuple starting with this value number, followed by the returned "begin"
 value, followed by the returned "end" value.  For example:
 
 ::
+<<<<<<< .merge_file_up5bmn
   
+=======
+
+>>>>>>> .merge_file_nslKHk
   vrp = xapian.NumberValueRangeProcessor(0, '$', True)
   a = '$10'
   b = '20'
@@ -344,7 +376,11 @@ implementation, and, again, since it cannot return values by reference, it
 should return a tuple of (value number, begin, end).  For example:
 
 ::
+<<<<<<< .merge_file_up5bmn
   
+=======
+
+>>>>>>> .merge_file_nslKHk
   class MyVRP(xapian.ValueRangeProcessor):
       def __init__(self):
           xapian.ValueRangeProcessor.__init__(self)

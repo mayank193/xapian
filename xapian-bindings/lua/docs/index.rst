@@ -13,7 +13,11 @@ Lua bindings based on the simple examples from ``xapian-examples``:
 `simplesearch.lua <examples/simplesearch.lua>`_,
 `simpleexpand.lua <examples/simpleexpand.lua>`_.
 
+<<<<<<< .merge_file_943t4i
 There's also 
+=======
+There's also
+>>>>>>> .merge_file_OAtTAe
 `simplematchdecider.lua <examples/simplematchdecider.lua>`_
 which shows how to define a MatchDecider in Lua.
 
@@ -136,7 +140,11 @@ wrapped like so for Lua:
 Constants
 #########
 
+<<<<<<< .merge_file_943t4i
 For Lua, constants are wrapped as ``xapian.CONSTANT_NAME`` 
+=======
+For Lua, constants are wrapped as ``xapian.CONSTANT_NAME``
+>>>>>>> .merge_file_OAtTAe
 or ``xapian.ClassName_CONSTANT_NAME``.
 So ``Xapian::DB_CREATE_OR_OPEN`` is available as
 ``xapian.DB_CREATE_OR_OPEN``, ``Xapian::Query::OP_OR`` is
@@ -174,8 +182,13 @@ more convenient than using the TermIterator directly.
 MatchDecider
 ############
 
+<<<<<<< .merge_file_943t4i
 Custom MatchDeciders can be created in Lua in the form of lua function; simply 
 function ensures you create a subclass of xapian.MatchDecider, which calls 
+=======
+Custom MatchDeciders can be created in Lua in the form of lua function; simply
+function ensures you create a subclass of xapian.MatchDecider, which calls
+>>>>>>> .merge_file_OAtTAe
 the super-constructor, and overloads the operator method to callback the lua function
 that will do the work. The simplest example (which does nothing
 useful) would be as follows:
