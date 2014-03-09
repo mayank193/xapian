@@ -429,11 +429,6 @@ decreasing :math:`W(d)` value, we get a ranked list called the *match set*, or
 
 .. math::
      item 0:\:D_0, W(D_0)
-<<<<<<< .merge_file_aGQ22F
-<<<<<<< HEAD
-=======
-<<<<<<< .merge_file_Ax7SLA
->>>>>>> .merge_file_sSJClF
 
 .. math::
      item 1:\:D_1, W(D_1)
@@ -447,25 +442,6 @@ decreasing :math:`W(d)` value, we get a ranked list called the *match set*, or
            . }
      
 .. math:: 
-=======
-
-.. math::
-     item 1:\:D_1, W(D_1)
-
-.. math::
-     item 2:\:D_2, W(D_2)
-
-.. math::
-     \text{. \\
-           . \\
-           . }
-
-.. math::
-<<<<<<< .merge_file_aGQ22F
->>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
-=======
->>>>>>> .merge_file_ZMrTNB
->>>>>>> .merge_file_sSJClF
     item K:\:D_K, W(D_K)
 
 where :math:`W(D_j) \ge W(D_i)` if j > i.
@@ -533,42 +509,15 @@ The ESet then has this form,
 
 .. math::
      item 2:\:t_2, W(t_2)
-<<<<<<< .merge_file_aGQ22F
-<<<<<<< HEAD
      
-=======
-
->>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
-=======
-<<<<<<< .merge_file_Ax7SLA
-     
-=======
-
->>>>>>> .merge_file_ZMrTNB
->>>>>>> .merge_file_sSJClF
 .. math::
      \text{. \\
            . \\
            . }
-<<<<<<< .merge_file_aGQ22F
-<<<<<<< HEAD
-=======
-<<<<<<< .merge_file_Ax7SLA
->>>>>>> .merge_file_sSJClF
      
 .. math:: 
     item K:\:t_K, W(t_K)
 
-=======
-
-.. math::
-    item K:\:t_K, W(t_K)
-
-<<<<<<< .merge_file_aGQ22F
->>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
-=======
->>>>>>> .merge_file_ZMrTNB
->>>>>>> .merge_file_sSJClF
 where :math:`W(t_j) \ge W(t_i)` if j > i.
 
 Since the main function of the ESet is to find new terms to be added to
@@ -652,4 +601,3 @@ retrieval.
    (we've not read it in detail yet). As well as the print version,
    there's an online version on `the book's companion
    website <http://www-csli.stanford.edu/~hinrich/information-retrieval-book.html>`_.
-
