@@ -48,12 +48,12 @@ Ranker::Ranker() {
 //std::list<double>
 std::vector<double>
 Ranker::rank(const Xapian::RankList & rl) {
-    std::vector<double> res;
+    /*std::vector<double> res;
     Xapian::ListMLE listmle;
 
     double d=1.0;
     res.push_back(d);
-    return res;
+    return res;*/
 }
 
 void
@@ -78,9 +78,9 @@ Ranker::save_model() {
      */
 std::list<Xapian::RankList>
 Ranker::load_data(const std::string & data_file) {
-    std::list<Xapian::RankList> res;
+    /*std::list<Xapian::RankList> res;
 
-    return res;
+    return res;*/
 }
 
 
