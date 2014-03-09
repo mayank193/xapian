@@ -13,11 +13,19 @@ Lua bindings based on the simple examples from ``xapian-examples``:
 `simplesearch.lua <examples/simplesearch.lua>`_,
 `simpleexpand.lua <examples/simpleexpand.lua>`_.
 
+<<<<<<< .merge_file_sdk8Ss
 <<<<<<< HEAD
 There's also 
 =======
 There's also
 >>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
+=======
+<<<<<<< .merge_file_943t4i
+There's also 
+=======
+There's also
+>>>>>>> .merge_file_OAtTAe
+>>>>>>> .merge_file_syLn7u
 `simplematchdecider.lua <examples/simplematchdecider.lua>`_
 which shows how to define a MatchDecider in Lua.
 
@@ -140,11 +148,19 @@ wrapped like so for Lua:
 Constants
 #########
 
+<<<<<<< .merge_file_sdk8Ss
 <<<<<<< HEAD
 For Lua, constants are wrapped as ``xapian.CONSTANT_NAME`` 
 =======
 For Lua, constants are wrapped as ``xapian.CONSTANT_NAME``
 >>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
+=======
+<<<<<<< .merge_file_943t4i
+For Lua, constants are wrapped as ``xapian.CONSTANT_NAME`` 
+=======
+For Lua, constants are wrapped as ``xapian.CONSTANT_NAME``
+>>>>>>> .merge_file_OAtTAe
+>>>>>>> .merge_file_syLn7u
 or ``xapian.ClassName_CONSTANT_NAME``.
 So ``Xapian::DB_CREATE_OR_OPEN`` is available as
 ``xapian.DB_CREATE_OR_OPEN``, ``Xapian::Query::OP_OR`` is
@@ -182,13 +198,21 @@ more convenient than using the TermIterator directly.
 MatchDecider
 ############
 
+<<<<<<< .merge_file_sdk8Ss
 <<<<<<< HEAD
+=======
+<<<<<<< .merge_file_943t4i
+>>>>>>> .merge_file_syLn7u
 Custom MatchDeciders can be created in Lua in the form of lua function; simply 
 function ensures you create a subclass of xapian.MatchDecider, which calls 
 =======
 Custom MatchDeciders can be created in Lua in the form of lua function; simply
 function ensures you create a subclass of xapian.MatchDecider, which calls
+<<<<<<< .merge_file_sdk8Ss
 >>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
+=======
+>>>>>>> .merge_file_OAtTAe
+>>>>>>> .merge_file_syLn7u
 the super-constructor, and overloads the operator method to callback the lua function
 that will do the work. The simplest example (which does nothing
 useful) would be as follows:
