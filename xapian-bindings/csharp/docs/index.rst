@@ -91,7 +91,11 @@ follows:
 
 Other methods, such as ``MSetIterator.GetDocument()``, are available unchanged.
 
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
 MSet
 ####
 
@@ -154,7 +158,11 @@ start/end iterators specifying a number of terms or queries, plus an optional
 parameter.
 This isn't currently wrapped in C#.
 
+<<<<<<< HEAD
 .. FIXME implement this wrapping! 
+=======
+.. FIXME implement this wrapping!
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
 ..    In C#, this is wrapped to accept any C# sequence (for
 ..    example a list or tuple) to give the terms/queries, and you can specify
 ..    a mixture of terms and queries if you wish.  For example:
@@ -201,4 +209,8 @@ useful) would be as follows:
 	}
 
 
+<<<<<<< HEAD
 Last updated $Date: 2005-12-12T02:56:23.742308Z $
+=======
+Last updated $Date: 2005-12-12T02:56:23.742308Z $
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5

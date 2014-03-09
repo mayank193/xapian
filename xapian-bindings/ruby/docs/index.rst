@@ -10,7 +10,11 @@ Ruby bindings based on the simple examples from ``xapian-examples``:
 `simpleindex.rb <examples/simpleindex.rb>`_,
 `simplesearch.rb <examples/simplesearch.rb>`_,
 `simpleexpand.rb <examples/simpleexpand.rb>`_.
+<<<<<<< HEAD
 There's also 
+=======
+There's also
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
 `simplematchdecider.rb <examples/simplematchdecider.rb>`_
 which shows how to define a MatchDecider in Ruby.
 
@@ -19,7 +23,11 @@ Usage
 #####
 
 To use the bindings, you need to use ``require 'xapian'``
+<<<<<<< HEAD
 in your ruby program. 
+=======
+in your ruby program.
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
 
 Most standard Xapian methods are available directly
 to your Ruby program. Names have been altered to conform to the
@@ -28,7 +36,11 @@ in Ruby; set_foo() becomes foo=().)  C++ 'operator()' methods are
 renamed to 'call' methods in Ruby.
 
 The C++ methods are not yet documented in the `RDocs <rdocs/>`_.
+<<<<<<< HEAD
 In the meantime, refer to the 
+=======
+In the meantime, refer to the
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
 `C++ API documentation <http://xapian.org/docs/apidoc/html/annotated.html>`_
 for information on how to use the various methods. Most are
 available directly in the Ruby version. The RDocs currently provide information

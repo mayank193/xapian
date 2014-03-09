@@ -1,3 +1,38 @@
+Fri Mar 07 23:17:43 GMT 2014  Olly Betts <olly@survex.com>
+
+	* matcher/maxpostlist.cc: More fixes for --enable.log.
+
+Fri Mar 07 23:01:45 GMT 2014  Olly Betts <olly@survex.com>
+
+	* matcher/maxpostlist.cc: Fix compilation error with --enable-log on.
+	  Reported by Anurag Soni.
+
+Fri Mar 07 00:39:11 GMT 2014  Olly Betts <olly@survex.com>
+
+	* HACKING: Fix typo and RST markup.
+
+Fri Mar 07 00:21:16 GMT 2014  VcmaX <vcamx3@gmail.com>
+
+	* HACKING: Note packages to install from homebrew on Mac OS X.
+
+Fri Mar 07 00:17:01 GMT 2014  VcmaX <vcamx3@gmail.com>
+
+	* backends/dbcheck.cc,common/pack.h: Fix warnings with clang 5.0.
+
+Tue Mar 04 04:25:11 GMT 2014  Olly Betts <olly@survex.com>
+
+	* api/queryinternal.cc,api/queryinternal.h: Only simplify OP_SYNONYM
+	  with a single subquery if that subquery is a term or MatchAll.
+
+Tue Mar 04 04:12:58 GMT 2014  Olly Betts <olly@survex.com>
+
+	* tests/api_none.cc: Test OPs with a single MatchAll subquery.
+
+Mon Mar 03 22:59:55 GMT 2014  Mayank Chaudhary <mayankchaudhary.iitr@gmail.com>
+
+	* docs/Makefile.am,docs/bm25.rst,docs/intro_ir.rst: Convert equations
+	  in rst docs to use LaTeX via the math role and directive.
+
 Fri Feb 28 06:12:36 GMT 2014  Olly Betts <olly@survex.com>
 
 	* backends/brass/brass_positionlist.h,

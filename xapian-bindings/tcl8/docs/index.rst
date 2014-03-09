@@ -54,14 +54,22 @@ Michael Schlenker reports that this form works (i.e. the destructor gets
 called):
 
 ::
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
   xapian::WritableDatabase xapiandb testdir $::xapian::DB_CREATE_OR_OVERWRITE
   rename xapiandb ""
 
 However, apparently none of these forms work:
 
 ::
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
   xapian::WritableDatabase xapiandb testdir $::xapian::DB_CREATE_OR_OVERWRITE
   set db xapiandb
   $db -delete
@@ -79,7 +87,11 @@ Exceptions
 Xapian::Error exceptions can be handled in Tcl like so:
 
 ::
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
   if [catch {
       # Code which might throw an exception.
     } msg] {
@@ -124,7 +136,11 @@ follows:
 Other methods, such as ``MSetIterator::get_document``, are
 available under the same names.
 
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> 00fc2d9bf2fadf7f0e69227c50c22ce9cda106c5
 MSet
 ####
 
