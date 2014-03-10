@@ -58,7 +58,7 @@ SVMRanker() {};
  */
 Xapian::RankList rank(const Xapian::RankList & rl);
 
-void learn_model(){
+void Xapian::learn_model(){
 
     // default values
     param.svm_type = 4;
@@ -101,8 +101,8 @@ void learn_model(){
 }
 
 
-void load_model(const std::string & model_file);
+void Xapian::load_model(const std::string & model_file);
 
-void save_model();
+void Xapian::save_model();
 
-double score(const Xapian::FeatureVector & fv);
+double Xapian::score(const Xapian::FeatureVector & fv);
