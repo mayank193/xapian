@@ -46,13 +46,7 @@
 using namespace std;
 using namespace Xapian;
 
-namespace Xapian {
 
-class XAPIAN_VISIBILITY_DEFAULT SVMRanker: public Ranker {
-
-    string model;
-    double[] weight;
-  public:
     SVMRanker() {};
 
     /* Override all the four methods below in the ranker sub-classes files
@@ -108,7 +102,3 @@ class XAPIAN_VISIBILITY_DEFAULT SVMRanker: public Ranker {
     void save_model();
 
     double score(const Xapian::FeatureVector & fv);
-
-};
-
-}
