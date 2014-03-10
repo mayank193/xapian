@@ -1,4 +1,4 @@
-/* ranker.h: The abstract ranker file.
+/* svmranker.cc: SVM ranker to rank the training data.
  *
  * Copyright (C) 2012 Parth Gupta
  *
