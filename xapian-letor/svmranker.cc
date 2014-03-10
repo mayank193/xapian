@@ -48,6 +48,8 @@
 using namespace std;
 using namespace Xapian;
 
+int MAXPATHLENTH=200;
+
 static string get_cwd() {
     char temp[MAXPATHLENTH];
     return ( getcwd(temp, MAXPATHLENTH) ? std::string( temp ) : std::string() );
