@@ -44,7 +44,7 @@
 #define Malloc(type,n) (type *)malloc((n)*sizeof(type))
 
 using namespace std;
-
+using namespace Xapian;
 
 namespace Xapian {
 
