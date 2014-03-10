@@ -49,6 +49,7 @@ using namespace std;
 using namespace Xapian;
 
 struct svm_problem prob;
+struct svm_parameter param;
 
 int MAXPATHLENTH=200;
 
