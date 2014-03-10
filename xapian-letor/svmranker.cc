@@ -153,7 +153,12 @@ read_problem(const char *filename) {
     }
     fclose(fp);
 }
-SVMRanker() {};
+SVMRanker() {
+    this->model = get_cwd().append("/model.txt");
+    for(int i = 0; i<num_of_features;++i){
+        weight[i] = 0.0;
+    }
+}
 
 /* Override all the four methods below in the ranker sub-classes files
  * wiz svmranker.cc , listnet.cc, listmle.cc and so on
