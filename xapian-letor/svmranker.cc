@@ -48,6 +48,8 @@
 using namespace std;
 using namespace Xapian;
 
+struct svm_problem prob;
+
 int MAXPATHLENTH=200;
 
 static string get_cwd() {
