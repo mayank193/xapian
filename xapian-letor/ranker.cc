@@ -47,13 +47,12 @@ Ranker::Ranker() {
      */
 //std::list<double>
 std::vector<double>
-Ranker::rank(const Xapian::RankList & rl) {
-    /*std::vector<double> res;
-    Xapian::ListMLE listmle;
+Ranker::rank(const Xapian::RankList & /*rl*/) {
+    std::vector<double> res;
 
     double d=1.0;
     res.push_back(d);
-    return res;*/
+    return res;
 }
 
 void
@@ -61,11 +60,11 @@ Ranker::learn_model() {
 }
 
 void
-Ranker::load_model(const std::string & model_file) {
+Ranker::load_model(const std::string & /*model_file*/) {
 }
 
 void
-Ranker::set_training_data(vector<Xapian::RankList> training_data1) {
+Ranker::set_training_data(vector<Xapian::RankList> /*training_data1*/) {
 }
 
 void
@@ -77,10 +76,9 @@ Ranker::save_model() {
      * Xapian::RankList format
      */
 std::list<Xapian::RankList>
-Ranker::load_data(const std::string & data_file) {
-    /*std::list<Xapian::RankList> res;
-
-    return res;*/
+Ranker::load_data(const std::string & /*data_file*/) {
+    std::list<Xapian::RankList> res;
+    return res;
 }
 
 
