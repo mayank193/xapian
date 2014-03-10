@@ -26,10 +26,20 @@
 
 #include "ranker.h"
 #include "ranklist.h"
+#include "svmranker.h"
 //#include "evalmetric.h"
 
+#include "str.h"
+#include "stringutils.h"
+#include <string.h>
+
 #include <list>
+#include <string>
+#include <iostream>
+#include <fstream>
 #include <map>
+#include <vector>
+#include <math.h>
 
 #define Malloc(type,n) (type *)malloc((n)*sizeof(type))
 
