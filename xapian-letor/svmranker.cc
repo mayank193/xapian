@@ -31,6 +31,8 @@
 #include <list>
 #include <map>
 
+#define Malloc(type,n) (type *)malloc((n)*sizeof(type))
+
 using namespace std;
 
 
