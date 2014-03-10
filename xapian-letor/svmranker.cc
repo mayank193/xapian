@@ -41,6 +41,8 @@
 #include <vector>
 #include <math.h>
 
+#include <libsvm/svm.h>
+
 #define Malloc(type,n) (type *)malloc((n)*sizeof(type))
 
 using namespace std;
