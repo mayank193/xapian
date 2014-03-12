@@ -33,7 +33,6 @@ int
 FeatureManager::get_label(map<string, map<string, int> > qrel2, const Document &doc, std::string & qid) {
     int label = -1;
     string id = get_did(doc);    
-
     map<string, map<string, int> >::iterator outerit;
     map<string, int>::iterator innerit;
 
@@ -112,6 +111,8 @@ FeatureManager::load_relevance(const std::string & qrel_file) {
     }
     myfile.close();
     }
+    this->qrel = qrel1;
+    //Why is it returning qrel? Qrel is already a data member of featuremanager class.
     return qrel1;
 }
 
