@@ -52,6 +52,10 @@ using namespace std;
 using namespace Xapian;
 
 FeatureVector::FeatureVector() {
+    this->label = 0.0;
+    this->score = 0.0;
+    this->fcount = 0;
+    this->did = "";
 }
 
 FeatureVector::FeatureVector(const FeatureVector & /*o*/) {
