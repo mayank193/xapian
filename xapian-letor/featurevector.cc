@@ -58,8 +58,12 @@ FeatureVector::FeatureVector() {
     this->did = "";
 }
 
-FeatureVector::FeatureVector(const FeatureVector & /*o*/) {
-
+FeatureVector::FeatureVector(const FeatureVector & o) {
+    this->label = o.label;
+    this->score = o.score;
+    this->fcount = o.fcount;
+    this->fvals = o.fvals;
+    this->did = o.did;
 }
 
 map<string, map<string, int> >
