@@ -366,12 +366,9 @@ Letor::Internal::prepare_training_file(const string & queryfile, const string & 
 //    typedef map<string, Map1> Map2;     // qid and map1
 //    Map2 qrel;
 
-    map<string, map<string, int> > qrel; // 1
-
     Xapian::FeatureManager fm;
     fm.set_database(letor_db);
     fm.load_relevance(qrel_file);
-    qrel = fm.load_relevance(qrel_file);
 
     vector<Xapian::RankList> list_rlist;
 
