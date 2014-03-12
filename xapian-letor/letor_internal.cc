@@ -424,6 +424,6 @@ Letor::Internal::prepare_training_file(const string & queryfile, const string & 
     /* Call either one of the following
      */
     write_to_file(list_rlist);
-    write_ranklist(list_rlist);
+    //write_ranklist(list_rlist);
 //    train_file.close();
 }
