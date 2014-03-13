@@ -157,7 +157,7 @@ FeatureManager::transform(const Document &doc, double &weight)
 // or, better, extend Enquiry to support advanced ranking models
     val[19]=weight;
 
-    for(int i=0; i<=fNum;i++)
+    for(int i=1; i<fNum; ++i)
         fvals.insert(pair<int,double>(i,val[i]));
 
     return fvals;
