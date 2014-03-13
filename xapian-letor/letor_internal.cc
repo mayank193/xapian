@@ -328,7 +328,7 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
     }
     train_file.close();
 }
-
+/*
 static void
 write_ranklist(std::vector<Xapian::RankList> list_rlist) {
     fstream train_file ("train.bin", ios::in | ios::out | ios::binary);
@@ -337,7 +337,7 @@ write_ranklist(std::vector<Xapian::RankList> list_rlist) {
     train_file.write ((char*) &list_rlist, sizeof(list_rlist));
     train_file.close();
 }
-
+*/
 void
 Letor::Internal::prepare_training_file_listwise(const string & /*queryfile*/, int /*num_features*/) {
 }
