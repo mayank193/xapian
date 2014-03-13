@@ -126,7 +126,7 @@ FeatureManager::transform(const Document &doc, double &weight)
     map<string,long int> tf = f.termfreq(doc, letor_query);
     map<string, long int> doclen = f.doc_length(letor_db, doc);
 
-    double val[20];// = new double[fCount+1];
+    double val[fNum];// = new double[fCount+1];
 
     // storing the feature values from array index 1 to sync it with feature number.
     val[1]=f.calculate_f1(letor_query,tf,'t');
