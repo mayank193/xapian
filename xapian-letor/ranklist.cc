@@ -79,7 +79,7 @@ RankList::normalise() {
     // find the max value for each feature gpr all the FeatureVectors in the RankList rl.
     int num_features = 19;
     double temp = 0.0;
-    double max[num_features];
+    double max[num_features+1];
     
     for(int i=1; i<=num_features; ++i)
 	max[i] = 0.0;
