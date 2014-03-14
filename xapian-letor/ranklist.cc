@@ -75,7 +75,6 @@ std::vector<FeatureVector>
 RankList::normalise() {
 
     std::vector<FeatureVector> local_rl = this->rl;
-    
     // find the max value for each feature gpr all the FeatureVectors in the RankList rl.
     int num_features = 19;
     double temp = 0.0;
@@ -87,8 +86,8 @@ RankList::normalise() {
     int num_fv = local_rl.size();
     for(int i=0; i < num_fv; ++i) {
 	for(int j=1; j<=num_features; ++j) {
-	    if(max[j] < local_rl[i].fvals.find(j)->second)
-		max[j] = local_rl[i].fvals.find(j)->second;
+	    if(max[j] < local_rl[i].fvals[j])
+		max[j] = local_rl[i].fvals[j];
 	}
     }
     
@@ -98,12 +97,12 @@ RankList::normalise() {
     
     for(int i=0; i < num_fv; ++i) {
 	for(int j=1; j<=num_features; ++j) {
-	    temp = local_rl[i].fvals.find(j)->second;
+	    temp = local_rl[i].fvals[j];
 	    temp /= max[j];
-	    local_rl[i].fvals.insert(pair<int,double>(j,temp));
+	    local_rl[i].fvals[j] = temp;
 	}
     }
-    
+
     return local_rl;
 }
 
