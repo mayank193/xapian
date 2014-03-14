@@ -69,6 +69,7 @@ class XAPIAN_VISIBILITY_DEFAULT FeatureVector {
     void set_score(double score1);
     std::map<int,double> get_fvals();
     double get_feature_value(int index);
+    void printFeatureVector() const ;
     
 };
 
