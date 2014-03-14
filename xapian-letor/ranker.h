@@ -55,20 +55,20 @@ class XAPIAN_VISIBILITY_DEFAULT Ranker {
     /* Override all the four methods below in the ranker sub-classes files
      * wiz svmranker.cc , listnet.cc, listmle.cc and so on
      */
-    std::vector<double> rank(const Xapian::RankList & rl);
+    virtual std::vector<double> rank(const Xapian::RankList & rl);
     
-    void set_training_data(vector<Xapian::RankList> training_data1);
+    virtual void set_training_data(vector<Xapian::RankList> training_data1);
 
-    void learn_model();
+    virtual void learn_model();
 
-    void load_model(const std::string & model_file);
+    virtual void load_model(const std::string & model_file);
 
-    void save_model();
+    virtual void save_model();
 
     /* This method shoudl read the letor format data and transform into the list of 
      * Xapian::RankList format
      */
-    std::list<Xapian::RankList> load_data(const std::string & data_file);
+    virtual std::list<Xapian::RankList> load_data(const std::string & data_file);
 
 };
 
