@@ -319,7 +319,7 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
 	    FeatureVector fv = rlist.rl[j];
 	    // now save this feature vector fv to the file
 	    //train_file << fv.score << " " << fv.fcount << " " << fv.did<<endl;// << " ";
-	    train_file << " " << fv.label; // relevance label should be included according to original one.
+	    train_file << fv.label; // relevance label should be included according to original one.
         for(int k=1; k < 20; ++k) {    // the value of fv.fcount has been hard-coded to 20 since it is not defined yet. And also k should start from 1
 		train_file << " " << k << ":" << fv.fvals[k];
 	    }
