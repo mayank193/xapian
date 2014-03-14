@@ -81,12 +81,12 @@ RankList::normalise() {
     double temp = 0.0;
     double max[num_features];
     
-    for(int i=0; i<19; ++i)
+    for(int i=1; i<=num_features; ++i)
 	max[i] = 0.0;
     
     int num_fv = local_rl.size();
     for(int i=0; i < num_fv; ++i) {
-	for(int j=0; j<19; ++j) {
+	for(int j=1; j<=num_features; ++j) {
 	    if(max[j] < local_rl[i].fvals.find(j)->second)
 		max[j] = local_rl[i].fvals.find(j)->second;
 	}
@@ -97,11 +97,10 @@ RankList::normalise() {
     */
     
     for(int i=0; i < num_fv; ++i) {
-	for(int j=0; j<19; ++j) {
+	for(int j=1; j<=num_features; ++j) {
 	    temp = local_rl[i].fvals.find(j)->second;
 	    temp /= max[j];
 	    local_rl[i].fvals.insert(pair<int,double>(j,temp));
-	    temp = 0.9;
 	}
     }
     
