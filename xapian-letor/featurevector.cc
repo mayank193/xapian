@@ -137,11 +137,10 @@ FeatureVector::set_score(double score1) {
 }
 
 void
-printFeatureVector(){
-    std::map<int,double> fvals =  this->fvals;
+FeatureVector::printFeatureVector() const{
+    std::map<int,double> fv =  this->fvals;
     for(int j=1; j<=19; ++j) {
-        cout<<j<<":"<<fvals[j]<<" ";
+        cout<<j<<":"<<fv[j]<<" ";
     }
         cout<<endl;
-    }
 }
