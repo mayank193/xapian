@@ -51,7 +51,7 @@ class XAPIAN_VISIBILITY_DEFAULT SVMRanker: public Ranker {
     /* Override all the four methods below in the ranker sub-classes files
      * wiz svmranker.cc , listnet.cc, listmle.cc and so on
      */
-    std::list<double> rank(const Xapian::RankList & rl);
+    std::vector<double> rank(const Xapian::RankList & rl);
 
     void learn_model();
 

@@ -163,7 +163,7 @@ SVMRanker() {
 /* Override all the four methods below in the ranker sub-classes files
  * wiz svmranker.cc , listnet.cc, listmle.cc and so on
  */
-Xapian::RankList rank(const Xapian::RankList & rl);
+std::vector<double> rank(const Xapian::RankList & rl);
 
 void Xapian::learn_model(){
 
