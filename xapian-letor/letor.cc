@@ -84,9 +84,7 @@ void
 Letor::create_ranker(int ranker_type) {
     switch(ranker_type) {
         case 0:{
-            SVMRanker s;
-            internal->ranker = &s;
-            cout<<"Reached here"<<endl;
+            internal->ranker = new SVMRanker;
             break;
         }
         default: ;//cout<<"Please specify proper ranker.";
