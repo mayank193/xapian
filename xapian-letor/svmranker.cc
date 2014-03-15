@@ -162,7 +162,16 @@ SVMRanker() {
 /* Override all the four methods below in the ranker sub-classes files
  * wiz svmranker.cc , listnet.cc, listmle.cc and so on
  */
-std::vector<double> rank(const Xapian::RankList & rl);
+
+void SVMRanker::load_model(const std::string & model_file){
+    (void)model_file;
+}
+
+std::vector<double> SVMRanker::rank(const Xapian::RankList & rl) {
+    // FIXME
+    (void)rl;
+    return std::vector<double>();
+}
 
 void SVMRanker::learn_model(){
 
@@ -208,11 +217,14 @@ void SVMRanker::learn_model(){
 }
 
 
-void SVMRanker::load_model(const std::string & /*model_file*/){
-
-
+void SVMRanker::save_model() {
+    // FIXME
 }
-
-//void SVMRanker::save_model();
+ 
+double SVMRanker::score(const Xapian::FeatureVector & fv) {
+    // FIXME
+    (void)fv;
+    return 3.14;
+}
 
 //double SVMRanker::score(const Xapian::FeatureVector & fv);
