@@ -47,7 +47,7 @@
 
 using namespace std;
 using namespace Xapian;
-
+/*
 struct svm_problem prob;
 struct svm_parameter param;
 
@@ -57,7 +57,6 @@ static string get_cwd() {
     char temp[MAXPATHLENTH];
     return ( getcwd(temp, MAXPATHLENTH) ? std::string( temp ) : std::string() );
 }
-
 static void
 read_problem(const char *filename) {
     int elements, max_index, inst_max_index, i, j;
@@ -159,15 +158,16 @@ SVMRanker() {
         weight[i] = 0.0;
     }
 }
-
+*/
 /* Override all the four methods below in the ranker sub-classes files
  * wiz svmranker.cc , listnet.cc, listmle.cc and so on
  */
 std::vector<double> rank(const Xapian::RankList & rl);
 
-void Xapian::learn_model(){
+void SVMRanker::learn_model(){
 
-    // default values
+    cout<<"learn_model\n";
+    /*// default values
     param.svm_type = 4;
     param.kernel_type = 0;
     param.degree = 3;
@@ -183,16 +183,16 @@ void Xapian::learn_model(){
     param.nr_weight = 0;
     param.weight_label = NULL;
     param.weight = NULL;
-    cross_validation = 0;
+    //cross_validation = 0;
 
     printf("Learning the model..");
     string input_file_name;
     string model_file_name;
-    const char *error_msg;
+    //const char *error_msg;
 
     input_file_name = get_cwd().append("/train.txt");
     model_file_name = get_cwd().append("/model.txt");
-
+    
     read_problem(input_file_name.c_str());
     error_msg = svm_check_parameter(&prob, &param);
     if (error_msg) {
@@ -204,15 +204,15 @@ void Xapian::learn_model(){
     if (svm_save_model(model_file_name.c_str(), model)) {
     fprintf(stderr, "can't save model to file %s\n", model_file_name.c_str());
     exit(1);
-    }
+    }*/
 }
 
 
-void Xapian::load_model(const std::string & model_file){
+void SVMRanker::load_model(const std::string & /*model_file*/){
 
 
 }
 
-void Xapian::save_model();
+//void SVMRanker::save_model();
 
-double Xapian::score(const Xapian::FeatureVector & fv);
+//double SVMRanker::score(const Xapian::FeatureVector & fv);

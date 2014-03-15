@@ -131,7 +131,7 @@ Letor::Internal::letor_score(const Xapian::MSet & mset) {
     std::string s = "1";
     Xapian::RankList rlist = fm.create_rank_list(mset, s);
     
-    std::vector<double> scores = ranker.rank(rlist);
+    std::vector<double> scores = ranker->rank(rlist);
     
     /*Converting list<double> scores to map<docid,double> letor_mset*/
     int num_fv = scores.size();
@@ -281,9 +281,9 @@ Letor::Internal::letor_learn_model() {
     
     vector<Xapian::RankList> samples = load_list_ranklist(input_file_name.c_str());
     
-    ranker.set_training_data(samples);
+    ranker->set_training_data(samples);
     
-    ranker.learn_model();
+    ranker->learn_model();
 }
 
 

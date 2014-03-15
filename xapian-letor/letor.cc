@@ -30,6 +30,7 @@
 
 #include <map>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -82,11 +83,12 @@ Letor::prepare_training_file_listwise(const string & query_file, int num_feature
 void
 Letor::create_ranker(int ranker_type) {
     switch(ranker_type) {
-        case 0: SVMRanker s;
-                internal->ranker = &s;
-                break;
-        case 1: internal->ranker = * new ListMLE;
-		break;
+        case 0:{
+            SVMRanker s;
+            internal->ranker = &s;
+            cout<<"Reached here"<<endl;
+            break;
+        }
         default: ;//cout<<"Please specify proper ranker.";
     }
 }
