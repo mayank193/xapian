@@ -212,7 +212,7 @@ try {
     ltr.set_query(query);
     ltr.create_ranker(0);
 
-    //ltr.prepare_training_file("/home/mayank/Desktop/query_qrel_files/inex2010-topics.txt","/home/mayank/Desktop/query_qrel_files/inex2010-article.qrels",100);
+    ltr.prepare_training_file("/home/mayank/Desktop/query_qrel_files/inex2010-topics.txt","/home/mayank/Desktop/query_qrel_files/inex2010-article.qrels",100);
     
     //int num_features = 40;
     //ltr.prepare_training_file_listwise("filename",num_features);
