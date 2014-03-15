@@ -328,16 +328,21 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
     }
     train_file.close();
 }
-/*
+
 static void
 write_ranklist(std::vector<Xapian::RankList> list_rlist) {
-    fstream train_file ("train.bin", ios::in | ios::out | ios::binary);
-    long int size = sizeof(list_rlist);
-    train_file.write ((char*) &size, sizeof(size));
-    train_file.write ((char*) &list_rlist, sizeof(list_rlist));
-    train_file.close();
+    ofstream train_file ("train.bin", ios::out | ios::binary);
+    if (train_file.is_open()){
+        long int size = sizeof(list_rlist);
+        train_file.write ((char*) &size, sizeof(size));
+        train_file.write ((char*) &list_rlist, sizeof(list_rlist));
+        train_file.close();
+    }
+    else{
+        cout<<"File didn't open.\n";
+    }
 }
-*/
+
 void
 Letor::Internal::prepare_training_file_listwise(const string & /*queryfile*/, int /*num_features*/) {
 }
