@@ -259,23 +259,20 @@ read_problem(const char *filename) {
 */
 vector<Xapian::RankList>
 Letor::Internal::load_list_ranklist(const char *filename) { //train.bin
+    cout<<__FILE__<<":"<<__LINE__<<endl;
     ifstream train_file (filename, ios::in | ios::binary);
-    if(train_file.is_open()){
-        int size = 0;
-        train_file.read((char *)(&size), sizeof(size));
-        vector<Xapian::RankList> samples;// = (Samples *) malloc(size);
-        train_file.read((char*) &samples, size);
-        train_file.close();
-        return samples;
-    }
-    {
-        cout<<"Loading File didn't open to.\n";
-    }
+    vector<Xapian::RankList> samples;
+    cout<<__FILE__<<":"<<__LINE__<<endl;
+    int size = 0;
+    train_file.read((char *)(&size), sizeof(size));
+    train_file.read((char*) &samples, size);
+    train_file.close();
+    return samples;
 }
 
 void
 Letor::Internal::letor_learn_model() {
-
+    cout<<__FILE__<<":"<<__LINE__<<endl;
     printf("Learning the model..");
     string input_file_name;
     string model_file_name;
@@ -283,12 +280,14 @@ Letor::Internal::letor_learn_model() {
     model_file_name = get_cwd().append("/model.txt");
     
     //read_problem(input_file_name.c_str());
-    
+    cout<<__FILE__<<":"<<__LINE__<<endl;
     vector<Xapian::RankList> samples = load_list_ranklist(input_file_name.c_str());
+    cout<<__FILE__<<":"<<__LINE__<<endl;
+    //ranker->set_training_data(samples);
     
-    ranker->set_training_data(samples);
-    
+    cout<<__FILE__<<":"<<__LINE__<<endl;
     ranker->learn_model();
+    cout<<__FILE__<<":"<<__LINE__<<endl;
 }
 
 
@@ -435,5 +434,6 @@ Letor::Internal::prepare_training_file(const string & queryfile, const string & 
      */
     write_to_file(list_rlist);
     write_ranklist(list_rlist);
+    cout<<__FILE__<<":"<<__LINE__<<endl;
 //    train_file.close();
 }
