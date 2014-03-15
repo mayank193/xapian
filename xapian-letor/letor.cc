@@ -82,7 +82,8 @@ Letor::prepare_training_file_listwise(const string & query_file, int num_feature
 void
 Letor::create_ranker(int ranker_type) {
     switch(ranker_type) {
-        case 0: internal->ranker = * new SVMRanker;
+        case 0: SVMRanker s;
+                internal->ranker = &s;
                 break;
         case 1: internal->ranker = * new ListMLE;
 		break;
