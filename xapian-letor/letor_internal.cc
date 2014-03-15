@@ -259,13 +259,18 @@ read_problem(const char *filename) {
 */
 vector<Xapian::RankList>
 Letor::Internal::load_list_ranklist(const char *filename) { //train.bin
-    fstream train_file (filename, ios::in | ios::out | ios::binary);
-    int size = 0;
-    train_file.read((char *)(&size), sizeof(size));
-    vector<Xapian::RankList> samples;// = (Samples *) malloc(size);
-    train_file.read((char*) &samples, size);
-    train_file.close();
-    return samples;
+    ifstream train_file (filename, ios::in | ios::binary);
+    if(train_file.is_open()){
+        int size = 0;
+        train_file.read((char *)(&size), sizeof(size));
+        vector<Xapian::RankList> samples;// = (Samples *) malloc(size);
+        train_file.read((char*) &samples, size);
+        train_file.close();
+        return samples;
+    }
+    {
+        cout<<"Loading File didn't open to.\n";
+    }
 }
 
 void
