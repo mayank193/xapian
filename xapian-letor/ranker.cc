@@ -60,7 +60,8 @@ Ranker::learn_model() {
 }
 
 void
-Ranker::load_model(const std::string & /*model_file*/) {
+Ranker::load_model(const std::string & model_file) {
+    (void)model_file;
 }
 
 void
