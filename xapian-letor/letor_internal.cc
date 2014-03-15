@@ -279,7 +279,7 @@ Letor::Internal::letor_learn_model() {
     printf("Learning the model..");
     string input_file_name;
     string model_file_name;
-    input_file_name = get_cwd().append("/train.txt");
+    input_file_name = get_cwd().append("/train.bin");
     model_file_name = get_cwd().append("/model.txt");
     
     //read_problem(input_file_name.c_str());
