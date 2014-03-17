@@ -439,3 +439,69 @@ Letor::Internal::prepare_training_file(const string & queryfile, const string & 
     cout<<__FILE__<<":"<<__LINE__<<endl;
 //    train_file.close();
 }
+
+
+vector<Xapian::RankList>
+Letor::Internal::load_ranklist_from_file(const char *filename){
+    vector<Xapian::RankList> ranklist;
+    /* This function will retrieve the list<RankList> from the training file
+     */
+    ifstream train_file (filename, ios::in);
+
+    /* Each RankList has a vector<FeatureVector>
+     * each FeatureVector has the following data: double score, int fcount, string did, map<int, double> fvals
+     * each line: double int string 1:double 2:double 3:double....
+     */
+    while(train_file.peek() != EOF){
+        RankList rlist;
+
+        int size_rl;            // size of the ranklist corresponding to a queryid
+        train_file >> size_rl;
+        train_file.ignore();
+
+        string qid;
+        train_file >> qid;
+        rlist.set_qid(qid);
+
+        for(int j=0; j < size_rl; ++j) {
+            FeatureVector fv;
+            
+            // now save this feature vector fv to the file
+            double score;
+            train_file >> score;     // score corresponds to score of a particular document
+            fv.set_score(score);
+            train_file.ignore();
+            
+            int fcount;
+            train_file >> fcount;    // fcount corresponds to number of features.
+            fv.set_fcount(fcount);
+            train_file.ignore();
+            
+            string did;
+            train_file >> did;       //did corresponds to document id.
+            train_file.ignore();
+            fv.set_did(did);
+            
+            double label;
+            train_file >> label;     // label corresponds to relevance label.
+            fv.set_label(label);
+            
+            for(int k = 1; k < 20; ++k) {    // the value of fv.fcount has been hard-coded to 20 since it is not defined yet. And also k should start from 1
+                train_file.ignore();
+                double feature_value;
+                train_file >> feature_value;
+                fv.set_feature_value(k,feature_value);
+                cout << " " << k << ":" << fv.get_feature_value(k);
+            }
+
+            train_file.ignore();
+            rlist.add_feature_vector(fv);
+        }
+
+        ranklist.push_back(rlist);
+    }
+
+    train_file.close();
+    return ranklist;
+
+}
