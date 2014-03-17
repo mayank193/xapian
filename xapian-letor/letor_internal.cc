@@ -274,7 +274,6 @@ Letor::Internal::load_list_ranklist(const char *filename) { //train.bin
 */
 void
 Letor::Internal::letor_learn_model() {
-    cout<<__FILE__<<":"<<__LINE__<<endl;
     printf("Learning the model..");
     string input_file_name;
     string model_file_name;
@@ -282,14 +281,10 @@ Letor::Internal::letor_learn_model() {
     model_file_name = get_cwd().append("/model.txt");
     
     //read_problem(input_file_name.c_str());
-    cout<<__FILE__<<":"<<__LINE__<<endl;
     vector<Xapian::RankList> samples = load_ranklist_from_file(input_file_name.c_str());
-    cout<<__FILE__<<":"<<__LINE__<<endl;
     //ranker->set_training_data(samples);
     
-    cout<<__FILE__<<":"<<__LINE__<<endl;
     ranker->learn_model();
-    cout<<__FILE__<<":"<<__LINE__<<endl;
 }
 
 
@@ -436,7 +431,6 @@ Letor::Internal::prepare_training_file(const string & queryfile, const string & 
     /* Call either one of the following
      */
     write_to_file(list_rlist);
-    cout<<__FILE__<<":"<<__LINE__<<endl;
 //    train_file.close();
 }
 
