@@ -283,7 +283,7 @@ Letor::Internal::letor_learn_model() {
     
     //read_problem(input_file_name.c_str());
     cout<<__FILE__<<":"<<__LINE__<<endl;
-    vector<Xapian::RankList> samples = load_list_ranklist(input_file_name.c_str());
+    vector<Xapian::RankList> samples = load_ranklist_from_file(input_file_name.c_str());
     cout<<__FILE__<<":"<<__LINE__<<endl;
     //ranker->set_training_data(samples);
     
