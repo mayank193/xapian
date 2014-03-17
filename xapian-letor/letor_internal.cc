@@ -137,7 +137,8 @@ Letor::Internal::letor_score(const Xapian::MSet & mset) {
     int num_fv = scores.size();
     for(int i=0; i<num_fv; ++i) {
 	//Xapian::docid did = (Xapian::docid) rlist.rl[i].did;//need to convert did from string to Xapian::docid
-	Xapian::docid did = (Xapian::docid) atoi(rlist.rl[i].did.c_str());//need to convert did from string to Xapian::docid
+	std::vector<FeatureVector> rl = rlist.get_data();
+    Xapian::docid did = (Xapian::docid) atoi(rl[i].get_did().c_str());//need to convert did from string to Xapian::docid
 	letor_mset.insert(pair<Xapian::docid,double>(did, scores[i]));
     }
     
@@ -316,16 +317,17 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
 	 * each FeatureVector has the following data: double score, int fcount, string did, map<int, double> fvals
 	 * each line: double int string 1:double 2:double 3:double....
 	 */
-	int size_rl = rlist.rl.size();
+	std::vector<FeatureVector> rl = rlist.get_data();
+    int size_rl = rl.size();
 	// print the size of the rlist so that later we know how many featureVector to scan for this particular rlist.
-	train_file << size_rl << " " << rlist.qid << endl;
+	train_file << size_rl << " " << rlist.get_qid() << endl;
 	for(int j=0; j < size_rl; ++j) {
-	    FeatureVector fv = rlist.rl[j];
+	    FeatureVector fv = rl[j];
 	    // now save this feature vector fv to the file
-	    train_file << fv.score << " " << fv.fcount << " " << fv.did<<endl;// << " ";
-	    train_file << fv.label; // relevance label should be included according to original one.
+	    train_file << fv.get_score() << " " << fv.get_fcount() << " " << fv.get_did()<<endl;// << " ";
+	    train_file << fv.get_label(); // relevance label should be included according to original one.
         for(int k=1; k < 20; ++k) {    // the value of fv.fcount has been hard-coded to 20 since it is not defined yet. And also k should start from 1
-		train_file << " " << fv.fvals[k];
+		train_file << " " << fv.get_feature_value(k);
 	    }
 	    train_file << endl;
 	}
