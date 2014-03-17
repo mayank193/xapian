@@ -65,6 +65,16 @@ average_precision(const Xapian::RankList & rl){
 	return avg_precision;
 }
 
+double
+map_score(const vector<Xapian::RankList> rl){
+	double mean_avg_precision = 0.0;
+	for(int i = 0; i < rl.size(); ++i){
+		mean_avg_precision += average_precision(rl[i]);
+	}
+	mean_avg_precision /= rl.size();
+	return mean_avg_precision;
+}
+
     /* override this in the sub-class like MAP, NDCG, MRR, etc*/
 double
 EvalMetric::score(const Xapian::RankList & /*rl*/) {
