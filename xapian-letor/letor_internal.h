@@ -50,7 +50,7 @@ class Letor::Internal : public Xapian::Internal::intrusive_base {
     
     vector<Xapian::RankList> load_list_ranklist(const char *filename);
 
-
+    vector<Xapian::Ranklist> load_ranklist_from_file(const char *filename);
 };
 
 }
