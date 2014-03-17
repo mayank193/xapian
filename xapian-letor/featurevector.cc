@@ -96,19 +96,41 @@ FeatureVector::load_relevance(const std::string & qrel_file) {
     return qrel;
 }
 
-void
-FeatureVector::set_did(const std::string & did1) {
-    this->did=did1;
-}
-
+// set methods
 void
 FeatureVector::set_label(double label1) {
     this->label=label1;
 }
 
 void
+FeatureVector::set_score(double score1) {
+    this->score=score1;
+}
+
+void
 FeatureVector::set_fvals(map<int,double> fvals1) {
     this->fvals=fvals1;
+}
+
+void
+FeatureVector::set_fcount(int fcount1) {
+    this->fcount = fcount1;
+}
+
+void
+FeatureVector::set_did(const std::string & did1) {
+    this->did=did1;
+}
+
+void
+FeatureVector::set_feature_value(int index, double value) {
+    this->fvals[index] = value;
+}
+
+//get methods
+double
+FeatureVector::get_label() {
+    return this->label;
 }
 
 double
@@ -121,6 +143,16 @@ FeatureVector::get_fvals() {
     return this->fvals;
 }
 
+int
+FeatureVector::get_fcount(){
+    return this->fcount;
+}
+
+string
+FeatureVector::get_did() {
+    return this->did;
+}
+
 double
 FeatureVector::get_feature_value(int index) {
     map<int,double>::const_iterator iter;
@@ -131,10 +163,6 @@ FeatureVector::get_feature_value(int index) {
 	return (*iter).second;
 }
 
-void
-FeatureVector::set_score(double score1) {
-    this->score=score1;
-}
 
 void
 FeatureVector::printFeatureVector() const{
