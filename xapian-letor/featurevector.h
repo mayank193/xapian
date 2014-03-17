@@ -38,13 +38,13 @@ namespace Xapian {
 
 class XAPIAN_VISIBILITY_DEFAULT FeatureVector {
 
-  public:
-  
     double label;
     double score;
     std::map<int,double> fvals;
     int fcount;
     string did;
+
+  public:
 
     FeatureVector();
 
