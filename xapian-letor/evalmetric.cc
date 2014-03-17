@@ -39,7 +39,7 @@ EvalMetric::EvalMetric() {
 }
 
 double
-precision(const Xapian::RankList & rl, int n){
+EvalMetric::precision(const Xapian::RankList & rl, int n){
 	vector <Xapian::FeatureVector> fv = rl.get_data();
 	int postive_labels = 0;
 	for(int i = 0; i < n; ++i){
@@ -52,7 +52,7 @@ precision(const Xapian::RankList & rl, int n){
 }
 
 double
-average_precision(const Xapian::RankList & rl){
+EvalMetric::average_precision(const Xapian::RankList & rl){
 	double total_precision = 0.0;
 	vector <Xapian::FeatureVector> fv = rl.get_data();
 	for(int i =0; i < fv.size(); ++i){
@@ -66,7 +66,7 @@ average_precision(const Xapian::RankList & rl){
 }
 
 double
-map_score(const vector<Xapian::RankList> rl){
+EvalMetric::map_score(const vector<Xapian::RankList> rl){
 	double mean_avg_precision = 0.0;
 	for(int i = 0; i < rl.size(); ++i){
 		mean_avg_precision += average_precision(rl[i]);
