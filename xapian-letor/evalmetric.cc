@@ -47,8 +47,22 @@ precision(const Xapian::RankList & rl, int n){
 			postive_labels++;
 		}
 	}
-	int precision = postive_labels/n;
+	double precision = postive_labels/n;
 	return precision;
+}
+
+double
+average_precision(const Xapian::RankList & rl){
+	double total_precision = 0.0;
+	vector <Xapian::FeatureVector> fv = rl.get_data();
+	for(int i =0; i < fv.size(); ++i){
+		if(fv.get_label()){
+			total_precision += precision(rl,i);
+		}
+	}
+
+	double avg_precision = total_precision/precision(rl,fv.size());
+	return avg_precision;
 }
 
     /* override this in the sub-class like MAP, NDCG, MRR, etc*/
