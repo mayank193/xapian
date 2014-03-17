@@ -38,6 +38,19 @@ using namespace Xapian;
 EvalMetric::EvalMetric() {
 }
 
+double
+precision(const Xapian::RankList & rl, int n){
+	vector <Xapian::FeatureVector> fv = rl.get_data();
+	int postive_labels = 0;
+	for(int i = 0; i < n; ++i){
+		if(fv[i].get_label != 0){
+			postive_labels++;
+		}
+	}
+	int precision = postive_labels/n;
+	return precision;
+}
+
     /* override this in the sub-class like MAP, NDCG, MRR, etc*/
 double
 EvalMetric::score(const Xapian::RankList & /*rl*/) {
