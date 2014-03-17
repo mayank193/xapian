@@ -66,7 +66,7 @@ Ranker::load_model(const std::string & model_file) {
 
 void
 Ranker::set_training_data(vector<Xapian::RankList> training_data1) {
-    this->training_data = training_data1;
+    this->traindata = training_data1;
 }
 
 void
