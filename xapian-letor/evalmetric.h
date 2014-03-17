@@ -41,6 +41,7 @@ class XAPIAN_VISIBILITY_DEFAULT EvalMetric {
 
     /** This should be used for evaluation metrics like NDCG@k, MRR@k etc */
     int k;
+
   public:
     EvalMetric();
 
@@ -49,7 +50,11 @@ class XAPIAN_VISIBILITY_DEFAULT EvalMetric {
     // precision @n
     double precision(const Xapian::RankList & rl, int n);
 
+    double average_precision(const Xapian::RankList & rl);
+
     double map_score(const Xapian::RankList & rl);
+
+    double discount_cumulative_gain(vector <Xapian::FeatureVector> fv);
     
     double ndcg_score(const Xapian::RankList & rl);
 
