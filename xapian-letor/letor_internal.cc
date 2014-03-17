@@ -258,6 +258,7 @@ read_problem(const char *filename) {
 	fclose(fp);
 }
 */
+/*
 vector<Xapian::RankList>
 Letor::Internal::load_list_ranklist(const char *filename) { //train.bin
     cout<<__FILE__<<":"<<__LINE__<<endl;
@@ -270,7 +271,7 @@ Letor::Internal::load_list_ranklist(const char *filename) { //train.bin
     train_file.close();
     return samples;
 }
-
+*/
 void
 Letor::Internal::letor_learn_model() {
     cout<<__FILE__<<":"<<__LINE__<<endl;
@@ -334,7 +335,7 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
     }
     train_file.close();
 }
-
+/*
 static void
 write_ranklist(std::vector<Xapian::RankList> list_rlist) {
     ofstream train_file ("train.bin", ios::out | ios::binary);
@@ -348,7 +349,7 @@ write_ranklist(std::vector<Xapian::RankList> list_rlist) {
         cout<<"File didn't open.\n";
     }
 }
-
+*/
 void
 Letor::Internal::prepare_training_file_listwise(const string & /*queryfile*/, int /*num_features*/) {
 }
@@ -435,7 +436,6 @@ Letor::Internal::prepare_training_file(const string & queryfile, const string & 
     /* Call either one of the following
      */
     write_to_file(list_rlist);
-    write_ranklist(list_rlist);
     cout<<__FILE__<<":"<<__LINE__<<endl;
 //    train_file.close();
 }
