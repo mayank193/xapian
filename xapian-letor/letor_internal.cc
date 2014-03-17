@@ -278,12 +278,10 @@ Letor::Internal::letor_learn_model() {
     string input_file_name;
     string model_file_name;
     input_file_name = get_cwd().append("/train.txt");
-    model_file_name = get_cwd().append("/model.txt");
     
     //read_problem(input_file_name.c_str());
     vector<Xapian::RankList> samples = load_ranklist_from_file(input_file_name.c_str());
-    //ranker->set_training_data(samples);
-    
+    ranker->set_training_data(samples);
     ranker->learn_model();
 }
 
