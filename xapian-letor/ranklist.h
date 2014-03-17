@@ -48,6 +48,8 @@ class XAPIAN_VISIBILITY_DEFAULT RankList {
   public:
   
     RankList();
+
+    string get_qid();
     
     void set_qid(std::string qid1);
     
