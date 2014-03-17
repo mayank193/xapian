@@ -111,6 +111,11 @@ RankList::add_feature_vector(const Xapian::FeatureVector fv) {
     this->rl.push_back(fv);
 }
 
+string
+RankList::get_qid() {
+    return this->qid;
+}
+
 void
 RankList::set_qid(std::string qid1) {
     this->qid=qid1;
