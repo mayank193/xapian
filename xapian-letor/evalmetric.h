@@ -45,6 +45,10 @@ class XAPIAN_VISIBILITY_DEFAULT EvalMetric {
     EvalMetric();
 
     /* override this in the sub-class like MAP, NDCG, MRR, etc*/
+
+    // precision @n
+    double precision(const Xapian::RankList & rl, int n);
+
     double map_score(const Xapian::RankList & rl);
     
     double ndcg_score(const Xapian::RankList & rl);
