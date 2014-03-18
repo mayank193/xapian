@@ -163,6 +163,15 @@ FeatureVector::get_feature_value(int index) {
 	return (*iter).second;
 }
 
+int
+FeatureVector::get_non_zero_fv(){
+    int non_zero_fv;
+    for(int i = 0; i < this->fvals.size(); ++i){
+        if(fvals[i] != 0)   
+            non_zero_fv++;
+    }
+    return non_zero_fv;
+}
 
 void
 FeatureVector::printFeatureVector() const{
