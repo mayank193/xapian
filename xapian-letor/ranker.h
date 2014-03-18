@@ -42,7 +42,7 @@ namespace Xapian {
 
 class XAPIAN_VISIBILITY_DEFAULT Ranker {
 
-
+    friend class SVMRanker;
     std::vector<Xapian::RankList> traindata;
     std::vector<Xapian::RankList> validata;
     std::vector<Xapian::RankList> testdata;
