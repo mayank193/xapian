@@ -27,7 +27,6 @@
 #include "ranker.h"
 #include "ranklist.h"
 #include "svmranker.h"
-#include "letor_internal.h"
 //#include "evalmetric.h"
 
 #include "str.h"
@@ -56,105 +55,13 @@ struct svm_node *x_space;
 int cross_validation;
 int nr_fold;
 
-struct svm_node *x;
-
-static void
-read_problem(const char *filename) {
-    int elements, max_index, inst_max_index, i, j;
-    FILE *fp = fopen(filename, "r");
-    char *endptr;
-    char *idx, *val, *label;
-
-    if (fp == NULL) {
-    fprintf(stderr, "can't open input file %s\n", filename);
-    exit(1);
-    }
-
-    prob.l = 0;
-    elements = 0;
-    max_line_len = 1024;
-    line = Malloc(char, max_line_len);
-
-    while (readline(fp) != NULL) {
-    char *p = strtok(line, " \t"); // label
-
-    // features
-    while (1) {
-        p = strtok(NULL, " \t");
-        if (p == NULL || *p == '\n') // check '\n' as ' ' may be after the last feature
-        break;
-        ++elements;
-    }
-    ++elements;
-    ++prob.l;
-    }
-    rewind(fp);
-
-    prob.y = Malloc(double, prob.l);
-    prob.x = Malloc(struct svm_node *, prob.l);
-    x_space = Malloc(struct svm_node, elements);
-
-    max_index = 0;
-    j = 0;
-
-    for (i = 0; i < prob.l; ++i) {
-    inst_max_index = -1; // strtol gives 0 if wrong format, and precomputed kernel has <index> start from 0
-    readline(fp);
-    prob.x[i] = &x_space[j];
-    label = strtok(line, " \t\n");
-    if (label == NULL) // empty line
-        exit_input_error(i + 1);
-    prob.y[i] = strtod(label, &endptr);
-    if (endptr == label || *endptr != '\0')
-        exit_input_error(i + 1);
-
-    while (1) {
-        idx = strtok(NULL, ":");
-        val = strtok(NULL, " \t");
-
-        if (val == NULL)
-        break;
-
-        errno = 0;
-        x_space[j].index = (int)strtol(idx, &endptr, 10);
-
-        if (endptr == idx || errno != 0 || *endptr != '\0' || x_space[j].index <= inst_max_index)
-        exit_input_error(i + 1);
-        else
-        inst_max_index = x_space[j].index;
-
-        errno = 0;
-        x_space[j].value = strtod(val, &endptr);
-
-        if (endptr == val || errno != 0 || (*endptr != '\0' && !isspace(*endptr)))
-        exit_input_error(i + 1);
-
-        ++j;
-    }
-
-    if (inst_max_index > max_index)
-        max_index = inst_max_index;
-    x_space[j++].index = -1;
-    }
-
-    if (param.gamma == 0 && max_index > 0)
-    param.gamma = 1.0 / max_index;
-
-    if (param.kernel_type == PRECOMPUTED)
-    for (i = 0; i < prob.l; ++i) {
-        if (prob.x[i][0].index != 0) {
-        fprintf(stderr, "Wrong input format: first column must be 0:sample_serial_number\n");
-        exit(1);
-        }
-        if ((int)prob.x[i][0].value <= 0 || (int)prob.x[i][0].value > max_index) {
-        fprintf(stderr, "Wrong input format: sample_serial_number out of range\n");
-        exit(1);
-        }
-    }
-    fclose(fp);
+static string get_cwd() {
+    char temp[200];
+    return (getcwd(temp, 200) ? std::string(temp) : std::string());
 }
-SVMRanker() {
-    this->model = get_cwd().append("/model.txt");
+
+SVMRanker::SVMRanker() {
+    this->model_file_name = get_cwd().append("/model.txt");
     for(int i = 0; i<num_of_features;++i){
         weight[i] = 0.0;
     }
@@ -192,24 +99,98 @@ void SVMRanker::learn_model(){
     param.nr_weight = 0;            // set the parameter C of class i to weight*C in C-SVC
     param.weight_label = NULL;      // for C_SVC
     param.weight = NULL;            // for C_SVC
-    //cross_validation = 0;
 
-    printf("Learning the model..");
-    string input_file_name;
-    string model_file_name;
-    //const char *error_msg;
 
-    input_file_name = get_cwd().append("/train.txt");
-    model_file_name = get_cwd().append("/model.txt");
+    vector<Xapian::RankList> rl = this->traindata;
     
-    read_problem(input_file_name.c_str());
+    /* prob.l is the size of training dataset */
+    prob.l = 0;
+    for(unsigned int i = 0; i < rl.size(); ++i){
+        prob.l += rl[i].get_num_of_feature_vectors();
+    }
+    cout<<"Number of features are "<<prob.l<<endl;
+
+    /* Allocating memory to  the labels(y) and feature vectors(x)*/
+    prob.y = new double [prob.l];
+    prob.x = new svm_node* [prob.l];
+    cout<<__FILE__<<":"<<__LINE__<<endl;
+    
+    /* Get the number of non-zero features in the feature vector
+     * and assign memory to number of non-zero features plus one
+     * sentential feature.
+     */
+    int feature_index = 0;
+    for(unsigned int i = 0; i < rl.size(); ++i){
+        vector<Xapian::FeatureVector> fv = rl[i].get_data();
+        for(unsigned int j = 0; j < fv.size(); ++j){
+            int non_zero_elements = fv[j].get_non_zero_features();
+            cout<<feature_index<<" Non zero features "<< non_zero_elements<< endl;
+            prob.x[feature_index] = new svm_node [non_zero_elements+1];
+            feature_index++;
+        }
+    }
+
+    cout<<__FILE__<<":"<<__LINE__<<endl;
+
+    /* Generating the feature vector prob.x with all the non-zero
+     * features (sparse matrix representation) and the sentential
+     * feature with index set to -1  and value to -1.
+     */
+    feature_index = 0;
+    for(unsigned int i = 0; i < rl.size(); ++i){
+        
+        vector<Xapian::FeatureVector> fv = rl[i].get_data();
+        for(unsigned int j = 0; j < fv.size(); ++j){
+            
+            prob.y[feature_index] = fv[j].get_label();
+            map <int,double> fvals = fv[j].get_fvals();
+            int last_nonzero_value = -1;
+            for(unsigned int z = 1; z < fvals.size(); ++z){
+                
+                if(fvals[z] != 0){
+                    prob.x[feature_index][z-1].index = z;
+                    prob.x[feature_index][z-1].value = fvals[z];
+                    last_nonzero_value++;
+                }
+
+            } // endfor
+
+            prob.x[feature_index][last_nonzero_value+1].index = -1;
+            prob.x[feature_index][last_nonzero_value+1].index = -1;
+        } // endfor
+
+    } // endfor
+
+    for(int i = 0; i < prob.l; i++){
+        for(unsigned int j = 0 ; j < 19; ++j){
+            cout<<"("<<prob.x[i][j].index<<","<<prob.x[i][j].value<<") ";
+        }
+        cout<<endl;
+    }
+    // if (param.kernel_type == PRECOMPUTED)
+    // for (int i = 0; i < prob.l; ++i) {
+    //     if (prob.x[i][0].index != 0) {
+    //     fprintf(stderr, "Wrong input format: first column must be 0:sample_serial_number\n");
+    //     exit(1);
+    //     }
+    //     if ((int)prob.x[i][0].value <= 0 || (int)prob.x[i][0].value > max_index) {
+    //     fprintf(stderr, "Wrong input format: sample_serial_number out of range\n");
+    //     exit(1);
+    //     }
+    // }
+    cout<<__FILE__<<":"<<__LINE__<<endl;
+
+    const char *error_msg;
+
     error_msg = svm_check_parameter(&prob, &param);
     if (error_msg) {
     fprintf(stderr, "svm_check_parameter failed: %s\n", error_msg);
     exit(1);
     }
+    cout<<__FILE__<<":"<<__LINE__<<endl;
 
     model = svm_train(&prob, &param);
+    cout<<__FILE__<<":"<<__LINE__<<endl;
     if (svm_save_model(model_file_name.c_str(), model)) {
     fprintf(stderr, "can't save model to file %s\n", model_file_name.c_str());
     exit(1);
