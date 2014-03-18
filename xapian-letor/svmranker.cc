@@ -176,23 +176,22 @@ std::vector<double> SVMRanker::rank(const Xapian::RankList & rl) {
 
 void SVMRanker::learn_model(){
 
-    cout<<"learn_model\n";
     // default values
-    param.svm_type = 4;
-    param.kernel_type = 0;
-    param.degree = 3;
-    param.gamma = 0;    // 1/num_features
-    param.coef0 = 0;
-    param.nu = 0.5;
-    param.cache_size = 100;
-    param.C = 1;
-    param.eps = 1e-3;
-    param.p = 0.1;
-    param.shrinking = 1;
-    param.probability = 0;
-    param.nr_weight = 0;
-    param.weight_label = NULL;
-    param.weight = NULL;
+    param.svm_type = 4;             // set to 4 (corresponds to nu-SVR)
+    param.kernel_type = 0;          // set to 0 (corresponds to linear Kernel)
+    param.degree = 3;               // set degree in kernel function
+    param.gamma = 0;                // set gamma in kernel function (default 1/num_features)
+    param.coef0 = 0;                // set coef0 in kernel function
+    param.nu = 0.5;                 // set the parameter nu of nu-SVC, one-class SVM, and nu-SVR
+    param.cache_size = 100;         // set cache memory size in MB
+    param.C = 1;                    // set the parameter C of C-SVC, epsilon-SVR, and nu-SVR
+    param.eps = 1e-3;               // set tolerance of termination criterion
+    param.p = 0.1;                  // for EPSILON_SVR
+    param.shrinking = 1;            // whether to use the shrinking heuristics, 0 or 1
+    param.probability = 0;          // whether to train an SVC or SVR model for probability estimates, 0 or 1
+    param.nr_weight = 0;            // set the parameter C of class i to weight*C in C-SVC
+    param.weight_label = NULL;      // for C_SVC
+    param.weight = NULL;            // for C_SVC
     //cross_validation = 0;
 
     printf("Learning the model..");
