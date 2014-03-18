@@ -49,6 +49,15 @@
 using namespace std;
 using namespace Xapian;
 
+struct svm_parameter param;
+struct svm_problem prob;
+struct svm_model *model;
+struct svm_node *x_space;
+int cross_validation;
+int nr_fold;
+
+struct svm_node *x;
+
 static void
 read_problem(const char *filename) {
     int elements, max_index, inst_max_index, i, j;
@@ -168,7 +177,7 @@ std::vector<double> SVMRanker::rank(const Xapian::RankList & rl) {
 void SVMRanker::learn_model(){
 
     cout<<"learn_model\n";
-    /*// default values
+    // default values
     param.svm_type = 4;
     param.kernel_type = 0;
     param.degree = 3;
@@ -205,7 +214,7 @@ void SVMRanker::learn_model(){
     if (svm_save_model(model_file_name.c_str(), model)) {
     fprintf(stderr, "can't save model to file %s\n", model_file_name.c_str());
     exit(1);
-    }*/
+    }
 }
 
 
