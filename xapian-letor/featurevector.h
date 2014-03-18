@@ -76,7 +76,7 @@ class XAPIAN_VISIBILITY_DEFAULT FeatureVector {
     int get_fcount();
     string get_did();
     double get_feature_value(int index);
-    int get_non_zero_fv();
+    int get_non_zero_features();
     
     void printFeatureVector() const ;
     

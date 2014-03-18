@@ -164,7 +164,7 @@ FeatureVector::get_feature_value(int index) {
 }
 
 int
-FeatureVector::get_non_zero_fv(){
+FeatureVector::get_non_zero_features(){
     int non_zero_fv;
     for(int i = 0; i < this->fvals.size(); ++i){
         if(fvals[i] != 0)   
