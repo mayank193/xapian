@@ -27,6 +27,7 @@
 #include "ranker.h"
 #include "ranklist.h"
 #include "svmranker.h"
+#include "letor_internal.h"
 //#include "evalmetric.h"
 
 #include "str.h"
@@ -47,16 +48,7 @@
 
 using namespace std;
 using namespace Xapian;
-/*
-struct svm_problem prob;
-struct svm_parameter param;
 
-int MAXPATHLENTH=200;
-
-static string get_cwd() {
-    char temp[MAXPATHLENTH];
-    return ( getcwd(temp, MAXPATHLENTH) ? std::string( temp ) : std::string() );
-}
 static void
 read_problem(const char *filename) {
     int elements, max_index, inst_max_index, i, j;
@@ -158,7 +150,7 @@ SVMRanker() {
         weight[i] = 0.0;
     }
 }
-*/
+
 /* Override all the four methods below in the ranker sub-classes files
  * wiz svmranker.cc , listnet.cc, listmle.cc and so on
  */
