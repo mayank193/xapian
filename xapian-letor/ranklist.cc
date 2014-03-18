@@ -122,7 +122,7 @@ RankList::set_qid(std::string qid1) {
 }
 
 
-long int
+int
 RankList::get_num_of_feature_vectors(){
 	return this->rl.size();
 }
