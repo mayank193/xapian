@@ -58,16 +58,7 @@ using namespace Xapian;
 
 typedef vector<Xapian::RankList> Samples;
 
-struct svm_parameter param;
-struct svm_problem prob;
-struct svm_model *model;
-struct svm_node *x_space;
-int cross_validation;
-int nr_fold;
 
-
-
-struct svm_node *x;
 int max_nr_attr = 64;
 
 int predict_probability = 0;
