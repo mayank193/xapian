@@ -165,8 +165,8 @@ FeatureVector::get_feature_value(int index) {
 
 int
 FeatureVector::get_non_zero_features(){
-    int non_zero_fv;
-    for(int i = 0; i < this->fvals.size(); ++i){
+    int non_zero_fv = 0;
+    for(unsigned int i = 1; i <= this->fvals.size(); ++i){     // FIXME: hardcoded to 20 
         if(fvals[i] != 0)   
             non_zero_fv++;
     }
