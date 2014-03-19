@@ -43,10 +43,10 @@ namespace Xapian {
 
 class XAPIAN_VISIBILITY_DEFAULT SVMRanker: public Ranker {
 
-    string model;
+    string model_file_name;
     double weight[num_of_features];
   public:
-    SVMRanker() {};
+    SVMRanker();
 
     /* Override all the four methods below in the ranker sub-classes files
      * wiz svmranker.cc , listnet.cc, listmle.cc and so on
