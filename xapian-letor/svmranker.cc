@@ -137,12 +137,13 @@ void SVMRanker::learn_model(){
      * feature with index set to -1  and value to -1.
      */
     feature_index = 0;
+    cout<<"Size of ranklist"<<rl.size()<<endl;
     for(unsigned int i = 0; i < rl.size(); ++i){
-        
+        cout<<"Value of i"<<i<<endl;
         vector<Xapian::FeatureVector> fv = rl[i].get_data();
         for(unsigned int j = 0; j < fv.size(); ++j){
-            
             prob.y[feature_index] = fv[j].get_label();
+            cout<<feature_index<<" Label: "<<prob.y[feature_index]<<endl;
             map <int,double> fvals = fv[j].get_fvals();
             int last_nonzero_value = -1;
             for(unsigned int z = 1; z <= fvals.size(); ++z){
@@ -150,13 +151,15 @@ void SVMRanker::learn_model(){
                 if(fvals[z] != 0){
                     prob.x[feature_index][z-1].index = z;
                     prob.x[feature_index][z-1].value = fvals[z];
+                    cout<<"("<<prob.x[feature_index][z-1].index<<","<<prob.x[feature_index][z-1].value<<") ";
                     last_nonzero_value++;
                 }
 
             } // endfor
-
+            cout<<endl;
             prob.x[feature_index][last_nonzero_value+1].index = -1;
             prob.x[feature_index][last_nonzero_value+1].value = -1;
+            feature_index++;
         } // endfor
 
     } // endfor
