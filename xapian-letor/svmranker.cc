@@ -145,31 +145,31 @@ void SVMRanker::learn_model(){
             prob.y[feature_index] = fv[j].get_label();
             cout<<feature_index<<" Label: "<<prob.y[feature_index]<<endl;
             map <int,double> fvals = fv[j].get_fvals();
-            int last_nonzero_value = -1;
+            int last_nonzero_value = 0;
             for(unsigned int z = 1; z <= fvals.size(); ++z){
                 
                 if(fvals[z] != 0){
-                    prob.x[feature_index][z-1].index = z;
-                    prob.x[feature_index][z-1].value = fvals[z];
+                    prob.x[feature_index][last_nonzero_value].index = z;
+                    prob.x[feature_index][last_nonzero_value].value = fvals[z];
                     cout<<"("<<prob.x[feature_index][z-1].index<<","<<prob.x[feature_index][z-1].value<<") ";
                     last_nonzero_value++;
                 }
 
             } // endfor
             cout<<endl;
-            prob.x[feature_index][last_nonzero_value+1].index = -1;
-            prob.x[feature_index][last_nonzero_value+1].value = -1;
+            prob.x[feature_index][last_nonzero_value].index = -1;
+            prob.x[feature_index][last_nonzero_value].value = -1;
             feature_index++;
         } // endfor
 
     } // endfor
 
-    for(int i = 0; i < prob.l; i++){
-        for(unsigned int j = 0 ; j <= 19; ++j){
-            cout<<"("<<prob.x[i][j].index<<","<<prob.x[i][j].value<<") ";
-        }
-        cout<<endl;
-    }
+    // for(int i = 0; i < prob.l; i++){
+    //     for(unsigned int j = 0 ; j <= 19; ++j){
+    //         cout<<"("<<prob.x[i][j].index<<","<<prob.x[i][j].value<<") ";
+    //     }
+    //     cout<<endl;
+    // }
     // if (param.kernel_type == PRECOMPUTED)
     // for (int i = 0; i < prob.l; ++i) {
     //     if (prob.x[i][0].index != 0) {
