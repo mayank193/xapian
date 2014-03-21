@@ -108,12 +108,10 @@ void SVMRanker::learn_model(){
     for(unsigned int i = 0; i < rl.size(); ++i){
         prob.l += rl[i].get_num_of_feature_vectors();
     }
-    cout<<"Number of features are "<<prob.l<<endl;
 
     /* Allocating memory to  the labels(y) and feature vectors(x)*/
     prob.y = new double [prob.l];
     prob.x = new svm_node* [prob.l];
-    cout<<__FILE__<<":"<<__LINE__<<endl;
     
     /* Get the number of non-zero features in the feature vector
      * and assign memory to number of non-zero features plus one
@@ -124,39 +122,32 @@ void SVMRanker::learn_model(){
         vector<Xapian::FeatureVector> fv = rl[i].get_data();
         for(unsigned int j = 0; j < fv.size(); ++j){
             int non_zero_elements = fv[j].get_non_zero_features();
-            cout<<feature_index<<" Non zero features "<< non_zero_elements<< endl;
             prob.x[feature_index] = new svm_node [non_zero_elements+1];
             feature_index++;
         }
     }
-
-    cout<<__FILE__<<":"<<__LINE__<<endl;
 
     /* Generating the feature vector prob.x with all the non-zero
      * features (sparse matrix representation) and the sentential
      * feature with index set to -1  and value to -1.
      */
     feature_index = 0;
-    cout<<"Size of ranklist"<<rl.size()<<endl;
     for(unsigned int i = 0; i < rl.size(); ++i){
-        cout<<"Value of i"<<i<<endl;
         vector<Xapian::FeatureVector> fv = rl[i].get_data();
+
         for(unsigned int j = 0; j < fv.size(); ++j){
             prob.y[feature_index] = fv[j].get_label();
-            cout<<feature_index<<" Label: "<<prob.y[feature_index]<<endl;
             map <int,double> fvals = fv[j].get_fvals();
             int last_nonzero_value = 0;
-            for(unsigned int z = 1; z <= fvals.size(); ++z){
-                
-                if(fvals[z] != 0){
+
+            for(unsigned int z = 1; z <= fvals.size(); ++z){                
+                if(fvals[z] > 0){       // for calculating all the positive values as well as non-zero
                     prob.x[feature_index][last_nonzero_value].index = z;
                     prob.x[feature_index][last_nonzero_value].value = fvals[z];
-                    cout<<"("<<prob.x[feature_index][z-1].index<<","<<prob.x[feature_index][z-1].value<<") ";
                     last_nonzero_value++;
                 }
 
             } // endfor
-            cout<<endl;
             prob.x[feature_index][last_nonzero_value].index = -1;
             prob.x[feature_index][last_nonzero_value].value = -1;
             feature_index++;
@@ -164,12 +155,17 @@ void SVMRanker::learn_model(){
 
     } // endfor
 
+    /* Check whether all the sparse array was constructed properly or not.*/
     // for(int i = 0; i < prob.l; i++){
-    //     for(unsigned int j = 0 ; j <= 19; ++j){
+    //     cout<<i<<" Label: "<<prob.y[i]<<endl;        
+    //     for(unsigned int j = 0 ; prob.x[i][j].index != -1; ++j){
     //         cout<<"("<<prob.x[i][j].index<<","<<prob.x[i][j].value<<") ";
     //     }
     //     cout<<endl;
     // }
+
+    // FIXME: Whether it should be included or not.
+      
     // if (param.kernel_type == PRECOMPUTED)
     // for (int i = 0; i < prob.l; ++i) {
     //     if (prob.x[i][0].index != 0) {
@@ -181,7 +177,6 @@ void SVMRanker::learn_model(){
     //     exit(1);
     //     }
     // }
-    cout<<__FILE__<<":"<<__LINE__<<endl;
 
     const char *error_msg;
 
