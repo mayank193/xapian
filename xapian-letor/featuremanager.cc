@@ -49,7 +49,8 @@ FeatureManager::get_label(map<string, map<string, int> > qrel2, const Document &
 Xapian::RankList
 FeatureManager::create_rank_list(const Xapian::MSet & mset, std::string & qid) {
     Xapian::RankList rlist;
-
+    rlist.set_qid(qid);
+    
     for (Xapian::MSetIterator i = mset.begin(); i != mset.end(); ++i) {
         
         Xapian::Document doc = i.get_document();
@@ -64,7 +65,6 @@ FeatureManager::create_rank_list(const Xapian::MSet & mset, std::string & qid) {
 
         if(label!=-1) {
             Xapian::FeatureVector fv = create_feature_vector(fVals, label, did);
-            rlist.set_qid(qid);
             rlist.add_feature_vector(fv);
         }
     }
