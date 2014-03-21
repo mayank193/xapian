@@ -196,7 +196,10 @@ void SVMRanker::learn_model(){
 
 
 void SVMRanker::save_model() {
-    // FIXME
+    if (svm_save_model(this->model_file_name.c_str(), this->model)) {
+    fprintf(stderr, "can't save model to file %s\n", this->model_file_name.c_str());
+    exit(1);
+    }
 }
  
 double SVMRanker::score(const Xapian::FeatureVector & fv) {
