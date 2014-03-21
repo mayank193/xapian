@@ -34,6 +34,7 @@
 
 #include <list>
 #include <map>
+#include <libsvm/svm.h>
 
 using namespace std;
 
@@ -45,6 +46,7 @@ class XAPIAN_VISIBILITY_DEFAULT SVMRanker: public Ranker {
 
     string model_file_name;
     double weight[num_of_features];
+    struct svm_model *model;
   public:
     SVMRanker();
 
