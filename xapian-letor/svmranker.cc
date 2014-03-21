@@ -62,6 +62,7 @@ static string get_cwd() {
 
 SVMRanker::SVMRanker() {
     this->model_file_name = get_cwd().append("/model.txt");
+    this->model = NULL;
     for(int i = 0; i<num_of_features;++i){
         weight[i] = 0.0;
     }
@@ -185,10 +186,8 @@ void SVMRanker::learn_model(){
     fprintf(stderr, "svm_check_parameter failed: %s\n", error_msg);
     exit(1);
     }
-    cout<<__FILE__<<":"<<__LINE__<<endl;
 
     model = svm_train(&prob, &param);
-    cout<<__FILE__<<":"<<__LINE__<<endl;
     if (svm_save_model(model_file_name.c_str(), model)) {
     fprintf(stderr, "can't save model to file %s\n", model_file_name.c_str());
     exit(1);
