@@ -98,7 +98,9 @@ RankList::normalise() {
     for(int i=0; i < num_fv; ++i) {
 	for(int j=1; j<=num_features; ++j) {
 	    temp = local_rl[i].get_feature_value(j);
-	    temp /= max[j];
+	    if(max[j] != 0.0){
+	    	temp /= max[j];
+	    }
 	    local_rl[i].set_feature_value(j,temp);
 	}
     }
