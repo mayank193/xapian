@@ -73,7 +73,7 @@ SVMRanker::SVMRanker() {
  */
 
 void SVMRanker::load_model(const std::string & model_file){
-    (void)model_file;
+    this->model = svm_load_model(model_file.c_str());
 }
 
 std::vector<double> SVMRanker::rank(const Xapian::RankList & rl) {
