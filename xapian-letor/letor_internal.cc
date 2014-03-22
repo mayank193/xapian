@@ -303,6 +303,7 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
     ofstream train_file("train.txt",ios::out);
     if(!train_file.good()){
         cout<<"ERROR: The training file to write to couldn't be opened."<<endl;
+        exit(1);
     }
     // write it down with proper format
     int size_rlist = list_rlist.size();
