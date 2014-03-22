@@ -74,6 +74,7 @@ SVMRanker::SVMRanker() {
 
 void SVMRanker::load_model(const std::string & model_file){
     this->model = svm_load_model(model_file.c_str());
+    cout << "SVMRanker model loaded successfully" << endl;
 }
 
 std::vector<double> SVMRanker::rank(const Xapian::RankList & rl) {
@@ -200,6 +201,7 @@ void SVMRanker::save_model() {
     fprintf(stderr, "can't save model to file %s\n", this->model_file_name.c_str());
     exit(1);
     }
+    cout << "SVMRanker model saved successfully" << endl;
 }
  
 double SVMRanker::score(const Xapian::FeatureVector & fv) {

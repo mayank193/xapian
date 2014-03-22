@@ -274,6 +274,8 @@ Letor::Internal::letor_learn_model() {
     vector<Xapian::RankList> samples = load_ranklist_from_file(input_file_name.c_str());
     ranker->set_training_data(samples);
     ranker->learn_model();
+    ranker->save_model();
+    ranker->load_model("model.txt");
 }
 
 
