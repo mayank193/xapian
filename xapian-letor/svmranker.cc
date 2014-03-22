@@ -77,10 +77,36 @@ void SVMRanker::load_model(const std::string & model_file){
     cout << "SVMRanker model loaded successfully" << endl;
 }
 
-std::vector<double> SVMRanker::rank(const Xapian::RankList & rl) {
-    // FIXME
-    (void)rl;
-    return std::vector<double>();
+std::vector<double> SVMRanker::rank(Xapian::RankList & rl) {
+    
+    std::vector<double> predicted_scores;
+    struct svm_node* test;
+    cout<<__FILE__<<":"<<__LINE__<<endl;
+    vector <Xapian::FeatureVector> fv = rl.get_data();
+    cout<<fv.size()<<endl;
+    for(unsigned int j = 0; j < fv.size(); ++j){
+        map <int,double> fvals = fv[j].get_fvals();
+        
+        int non_zero_elements = fv[j].get_non_zero_features();
+        test = new svm_node [non_zero_elements+1];
+
+        int last_nonzero_value = 0;
+        for(unsigned int z = 1; z <= fvals.size(); ++z){                
+            if(fvals[z] > 0){       // for calculating all the positive values as well as non-zero
+                test[last_nonzero_value].index = z;
+                test[last_nonzero_value].value = fvals[z];
+                last_nonzero_value++;
+            }
+
+        } // endfor
+            cout<<__FILE__<<":"<<__LINE__<<endl;
+        test[last_nonzero_value].index = -1;
+        test[last_nonzero_value].value = -1;
+        double predict_score = svm_predict(this->model,test);
+        predicted_scores.push_back(predict_score);
+    } // endfor
+        cout<<__FILE__<<":"<<__LINE__<<endl;
+    return predicted_scores;
 }
 
 void SVMRanker::learn_model(){
