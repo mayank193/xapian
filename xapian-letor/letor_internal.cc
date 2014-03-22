@@ -120,7 +120,7 @@ Letor::Internal::letor_score(const Xapian::MSet & mset) {
     fm.set_query(letor_query);
     
     std::string s = "1";
-    Xapian::RankList rlist = fm.create_rank_list(mset, s);
+    Xapian::RankList rlist = fm.create_query_rank_list(mset, s);
     
     std::vector<double> scores = ranker->rank(rlist);
     
