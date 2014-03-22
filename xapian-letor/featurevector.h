@@ -59,8 +59,6 @@ class XAPIAN_VISIBILITY_DEFAULT FeatureVector {
 
     static bool before( const Xapian::FeatureVector& c1, const Xapian::FeatureVector& c2 ) { return c1.score < c2.score; }
 
-    map<string, map<string, int> > load_relevance(const std::string & qrel_file);
-
     // set methods
     void set_label(double label1);
     void set_score(double score1);
