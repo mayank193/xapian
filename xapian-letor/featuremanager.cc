@@ -5,6 +5,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <fstream>
+#include <iostream>
 
 #include <map>
 
@@ -91,6 +92,10 @@ FeatureManager::load_relevance(const std::string & qrel_file) {
 
     string inLine;
     ifstream myfile (qrel_file.c_str(), ifstream::in);
+    if(!myfile.good()){
+        cout<<"ERROR:Query relevance file couldn't be found."<<endl;
+        exit(1);
+    }
     string token[4];
     if (myfile.is_open()) {
     while (myfile.good()) {
