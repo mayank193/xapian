@@ -300,8 +300,10 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
     /* This function will save the list<RankList> to the training file
      * so that this list<RankList> can be loaded again by train_model() and subsequent functions.
      */
-    ofstream train_file;
-    train_file.open("train.txt");
+    ofstream train_file("train.txt",ios::out);
+    if(!train_file.good()){
+        cout<<"ERROR: The training file to write to couldn't be opened."<<endl;
+    }
     // write it down with proper format
     int size_rlist = list_rlist.size();
     //for (list<Xapian::RankList>::iterator it = l.begin(); it != l.end(); it++);
