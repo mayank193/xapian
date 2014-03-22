@@ -86,7 +86,7 @@ std::vector<double> SVMRanker::rank(Xapian::RankList & rl) {
     cout<<fv.size()<<endl;
     for(unsigned int j = 0; j < fv.size(); ++j){
         map <int,double> fvals = fv[j].get_fvals();
-        
+        fv[j].printFeatureVector();
         int non_zero_elements = fv[j].get_non_zero_features();
         test = new svm_node [non_zero_elements+1];
 
@@ -103,6 +103,7 @@ std::vector<double> SVMRanker::rank(Xapian::RankList & rl) {
         test[last_nonzero_value].index = -1;
         test[last_nonzero_value].value = -1;
         double predict_score = svm_predict(this->model,test);
+        cout<<"Predicted score: "<<predict_score<<endl;
         predicted_scores.push_back(predict_score);
     } // endfor
         cout<<__FILE__<<":"<<__LINE__<<endl;
