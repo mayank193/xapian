@@ -28,6 +28,7 @@
 
 #include <list>
 #include <map>
+#include <math>
 
 using namespace std;
 
@@ -36,6 +37,66 @@ using namespace Xapian;
 
 
 EvalMetric::EvalMetric() {
+}
+
+double
+EvalMetric::precision(const Xapian::RankList & rl, int n){
+	vector <Xapian::FeatureVector> fv = rl.get_data();
+	int postive_labels = 0;
+	for(int i = 0; i < n; ++i){
+		if(fv[i].get_label != 0){
+			postive_labels++;
+		}
+	}
+	double precision = postive_labels/n;
+	return precision;
+}
+
+double
+EvalMetric::average_precision(const Xapian::RankList & rl){
+	double total_precision = 0.0;
+	vector <Xapian::FeatureVector> fv = rl.get_data();
+	for(int i =0; i < fv.size(); ++i){
+		if(fv.get_label()){
+			total_precision += precision(rl,i);
+		}
+	}
+
+	double avg_precision = total_precision/precision(rl,fv.size());
+	return avg_precision;
+}
+
+double
+EvalMetric::map_score(const vector<Xapian::RankList> rl){
+	double mean_avg_precision = 0.0;
+	for(int i = 0; i < rl.size(); ++i){
+		mean_avg_precision += average_precision(rl[i]);
+	}
+	mean_avg_precision /= rl.size();
+	return mean_avg_precision;
+}
+
+double
+EvalMetric::discount_cumulative_gain(vector <Xapian::FeatureVector> fv){
+	double dcg = 0.0;		// dcg stands for discout cumulative gain
+	for(int i = 0; i < fv.size(); ++i){
+		dcg += (math.pow(2,fv[i].get_score())/math.log2(2+i));
+		// Here it is log(2+j) instead of log(1+j) because i starts with 0.
+	}
+	return dcg;
+}
+
+double
+EvalMetric::ndcg_score(const vector<Xapian::RankList> rl){
+	double mean_ndcg = 0.0;
+	for(int i = 0; i < rl.size(); ++i){
+		vector <Xapian::FeatureVector> fv = rl[i].get_data();
+		vector <Xapian::FeatureVector> fv_sorted = rl[i].sort_by_score();
+		double normalized_dcg = discount_cumulative_gain(fv)/discount_cumulative_gain(fv_sorted);
+		mean_ndcg += normalized_dcg;
+	}
+	mean_ndcg /= rl.size();
+	return mean_ndcg;
 }
 
     /* override this in the sub-class like MAP, NDCG, MRR, etc*/
