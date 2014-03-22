@@ -379,9 +379,11 @@ Letor::Internal::prepare_training_file(const string & queryfile, const string & 
     vector<Xapian::RankList> list_rlist;
 
     string str1;
-    ifstream myfile1;
-    myfile1.open(queryfile.c_str(), ios::in);
-
+    ifstream myfile1(queryfile.c_str(), ios::in);
+    if(!myfile1.good()){
+        cout << "ERROR:Query file couldn't be found."<<endl;
+        exit(1);
+    }
 
     while (!myfile1.eof()) {           //reading all the queries line by line from the query file
 
