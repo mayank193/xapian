@@ -129,7 +129,7 @@ Letor::Internal::letor_score(const Xapian::MSet & mset) {
     for(int i=0; i<num_fv; ++i) {
 	//Xapian::docid did = (Xapian::docid) rlist.rl[i].did;//need to convert did from string to Xapian::docid
 	std::vector<FeatureVector> rl = rlist.get_data();
-    Xapian::docid did = (Xapian::docid) atoi(rl[i].get_did().c_str());//need to convert did from string to Xapian::docid
+    Xapian::docid did = rl[i].get_did();
 	letor_mset.insert(pair<Xapian::docid,double>(did, scores[i]));
     }
     
@@ -462,7 +462,7 @@ Letor::Internal::load_ranklist_from_file(const char *filename){
             fv.set_fcount(fcount);
             train_file.ignore();
             
-            string did;
+            Xapian::docid did;
             train_file >> did;       //did corresponds to document id.
             train_file.ignore();
             fv.set_did(did);
