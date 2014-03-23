@@ -42,7 +42,7 @@ class XAPIAN_VISIBILITY_DEFAULT FeatureVector {
     double score;
     std::map<int,double> fvals;
     int fcount;
-    string did;
+    Xapian::docid did;
 
   public:
 
@@ -66,7 +66,7 @@ class XAPIAN_VISIBILITY_DEFAULT FeatureVector {
     void set_score(double score1);
     void set_fvals(map<int,double> fvals1);
     void set_fcount(int fcount1);
-    void set_did(const std::string & did1);
+    void set_did(const Xapian::docid & did1);
     void set_feature_value(int index, double value);
     
     // get methods
@@ -74,7 +74,7 @@ class XAPIAN_VISIBILITY_DEFAULT FeatureVector {
     double get_score();
     std::map<int,double> get_fvals();
     int get_fcount();
-    string get_did();
+    Xapian::docid get_did();
     double get_feature_value(int index);
     int get_non_zero_features();
     

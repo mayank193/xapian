@@ -55,7 +55,7 @@ FeatureVector::FeatureVector() {
     this->label = 0.0;
     this->score = 0.0;
     this->fcount = 0;
-    this->did = "";
+    this->did = 0;
 }
 
 FeatureVector::FeatureVector(const FeatureVector & o) {
@@ -118,7 +118,7 @@ FeatureVector::set_fcount(int fcount1) {
 }
 
 void
-FeatureVector::set_did(const std::string & did1) {
+FeatureVector::set_did(const Xapian::docid & did1) {
     this->did=did1;
 }
 
@@ -148,7 +148,7 @@ FeatureVector::get_fcount(){
     return this->fcount;
 }
 
-string
+Xapian::docid
 FeatureVector::get_did() {
     return this->did;
 }
