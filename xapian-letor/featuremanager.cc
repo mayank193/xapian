@@ -60,7 +60,7 @@ FeatureManager::create_rank_list(const Xapian::MSet & mset, std::string & qid) {
         double weight = i.get_weight();
 
         map<int,double> fVals = transform(doc, weight);
-        string did = get_did(doc);
+        Xapian::docid did = doc.get_docid();
         int label = get_label(qrel, doc, qid);
 
         if(label!=-1) {
@@ -87,7 +87,7 @@ FeatureManager::create_query_rank_list(const Xapian::MSet & mset, std::string & 
         double weight = i.get_weight();
 
         map<int,double> fVals = transform(doc, weight);
-        string did = get_did(doc);
+        Xapian::docid did = doc.get_docid();
         int label = get_label(qrel, doc, qid);
         Xapian::FeatureVector fv = create_feature_vector(fVals, label, did);
         rlist.add_feature_vector(fv);
@@ -97,7 +97,7 @@ FeatureManager::create_query_rank_list(const Xapian::MSet & mset, std::string & 
     return rlist;
 }
 Xapian::FeatureVector
-FeatureManager::create_feature_vector(map<int,double> fvals, int &label, std::string & did) {
+FeatureManager::create_feature_vector(map<int,double> fvals, int &label, Xapian::docid & did) {
     Xapian::FeatureVector fv;
     fv.set_did(did);
     fv.set_label(label);
