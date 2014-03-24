@@ -49,7 +49,7 @@ typedef std::pair<Xapian::docid, double> MyPair;
 
 struct MyTestCompare {
     bool operator()(const MyPair& firstPair, const MyPair& secondPair) const {
-	return firstPair.second < secondPair.second;
+	return firstPair.second > secondPair.second;
     }
 };
 
@@ -232,7 +232,7 @@ try {
     set<MyPair,MyTestCompare>::iterator it;
 
     int rank=1;
-    for (it = s.end(); it != s.begin(); it--) {
+    for (it = s.begin(); it != s.end(); it++) {
 	cout << "Item: " << rank << "\t" << (*it).second << "\n";
 
 	Xapian::Document doc = db.get_document((*it).first);
