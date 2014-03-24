@@ -58,16 +58,7 @@ using namespace Xapian;
 
 typedef vector<Xapian::RankList> Samples;
 
-struct svm_parameter param;
-struct svm_problem prob;
-struct svm_model *model;
-struct svm_node *x_space;
-int cross_validation;
-int nr_fold;
 
-
-
-struct svm_node *x;
 int max_nr_attr = 64;
 
 int predict_probability = 0;
@@ -129,7 +120,7 @@ Letor::Internal::letor_score(const Xapian::MSet & mset) {
     fm.set_query(letor_query);
     
     std::string s = "1";
-    Xapian::RankList rlist = fm.create_rank_list(mset, s);
+    Xapian::RankList rlist = fm.create_query_rank_list(mset, s);
     
     std::vector<double> scores = ranker->rank(rlist);
     
@@ -138,7 +129,7 @@ Letor::Internal::letor_score(const Xapian::MSet & mset) {
     for(int i=0; i<num_fv; ++i) {
 	//Xapian::docid did = (Xapian::docid) rlist.rl[i].did;//need to convert did from string to Xapian::docid
 	std::vector<FeatureVector> rl = rlist.get_data();
-    Xapian::docid did = (Xapian::docid) atoi(rl[i].get_did().c_str());//need to convert did from string to Xapian::docid
+    Xapian::docid did = rl[i].get_did();
 	letor_mset.insert(pair<Xapian::docid,double>(did, scores[i]));
     }
     
@@ -283,6 +274,8 @@ Letor::Internal::letor_learn_model() {
     vector<Xapian::RankList> samples = load_ranklist_from_file(input_file_name.c_str());
     ranker->set_training_data(samples);
     ranker->learn_model();
+    ranker->save_model();
+    ranker->load_model("model.txt");
 }
 
 
@@ -474,7 +467,7 @@ Letor::Internal::load_ranklist_from_file(const char *filename){
             fv.set_fcount(fcount);
             train_file.ignore();
             
-            string did;
+            Xapian::docid did;
             train_file >> did;       //did corresponds to document id.
             train_file.ignore();
             fv.set_did(did);

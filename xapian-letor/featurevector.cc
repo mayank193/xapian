@@ -55,7 +55,7 @@ FeatureVector::FeatureVector() {
     this->label = 0.0;
     this->score = 0.0;
     this->fcount = 0;
-    this->did = "";
+    this->did = 0;
 }
 
 FeatureVector::FeatureVector(const FeatureVector & o) {
@@ -88,7 +88,7 @@ FeatureVector::set_fcount(int fcount1) {
 }
 
 void
-FeatureVector::set_did(const std::string & did1) {
+FeatureVector::set_did(const Xapian::docid & did1) {
     this->did=did1;
 }
 
@@ -118,7 +118,7 @@ FeatureVector::get_fcount(){
     return this->fcount;
 }
 
-string
+Xapian::docid
 FeatureVector::get_did() {
     return this->did;
 }
@@ -133,6 +133,15 @@ FeatureVector::get_feature_value(int index) {
 	return (*iter).second;
 }
 
+int
+FeatureVector::get_non_zero_features(){
+    int non_zero_fv = 0;
+    for(unsigned int i = 1; i <= this->fvals.size(); ++i){     // FIXME: hardcoded to 20 
+        if(fvals[i] != 0)   
+            non_zero_fv++;
+    }
+    return non_zero_fv;
+}
 
 void
 FeatureVector::printFeatureVector() const{

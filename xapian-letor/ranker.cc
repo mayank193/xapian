@@ -47,7 +47,7 @@ Ranker::Ranker() {
      */
 //std::list<double>
 std::vector<double>
-Ranker::rank(const Xapian::RankList & /*rl*/) {
+Ranker::rank(Xapian::RankList & /*rl*/) {
     std::vector<double> res;
 
     double d=1.0;

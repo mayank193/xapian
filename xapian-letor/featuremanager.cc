@@ -50,7 +50,8 @@ FeatureManager::get_label(map<string, map<string, int> > qrel2, const Document &
 Xapian::RankList
 FeatureManager::create_rank_list(const Xapian::MSet & mset, std::string & qid) {
     Xapian::RankList rlist;
-
+    rlist.set_qid(qid);
+    
     for (Xapian::MSetIterator i = mset.begin(); i != mset.end(); ++i) {
         
         Xapian::Document doc = i.get_document();
@@ -60,12 +61,11 @@ FeatureManager::create_rank_list(const Xapian::MSet & mset, std::string & qid) {
         double weight = i.get_weight();
 
         map<int,double> fVals = transform(doc, weight);
-        string did = get_did(doc);
+        Xapian::docid did = doc.get_docid();
         int label = get_label(qrel, doc, qid);
 
         if(label!=-1) {
             Xapian::FeatureVector fv = create_feature_vector(fVals, label, did);
-            rlist.set_qid(qid);
             rlist.add_feature_vector(fv);
         }
     }
@@ -74,8 +74,31 @@ FeatureManager::create_rank_list(const Xapian::MSet & mset, std::string & qid) {
     return rlist;
 }
 
+Xapian::RankList
+FeatureManager::create_query_rank_list(const Xapian::MSet & mset, std::string & qid) {
+    Xapian::RankList rlist;
+    rlist.set_qid(qid);
+    
+    for (Xapian::MSetIterator i = mset.begin(); i != mset.end(); ++i) {
+        
+        Xapian::Document doc = i.get_document();
+        
+        // Here a weight vector can be created in future for different weights of the document 
+        // like BM25, LM etc. 
+        double weight = i.get_weight();
+
+        map<int,double> fVals = transform(doc, weight);
+        Xapian::docid did = doc.get_docid();
+        int label = get_label(qrel, doc, qid);
+        Xapian::FeatureVector fv = create_feature_vector(fVals, label, did);
+        rlist.add_feature_vector(fv);
+    }
+    std::vector<FeatureVector> normalized_rl = rlist.normalise();
+    rlist.set_rl(normalized_rl);//coz i wasn't sure whether the changes will be reflected back from the normalize function.
+    return rlist;
+}
 Xapian::FeatureVector
-FeatureManager::create_feature_vector(map<int,double> fvals, int &label, std::string & did) {
+FeatureManager::create_feature_vector(map<int,double> fvals, int &label, Xapian::docid & did) {
     Xapian::FeatureVector fv;
     fv.set_did(did);
     fv.set_label(label);

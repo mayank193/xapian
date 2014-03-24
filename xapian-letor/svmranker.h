@@ -34,24 +34,23 @@
 
 #include <list>
 #include <map>
+#include <libsvm/svm.h>
 
 using namespace std;
-
-#define num_of_features 19
 
 namespace Xapian {
 
 class XAPIAN_VISIBILITY_DEFAULT SVMRanker: public Ranker {
 
-    string model;
-    double weight[num_of_features];
+    string model_file_name;
+    struct svm_model *model;
   public:
-    SVMRanker() {};
+    SVMRanker();
 
     /* Override all the four methods below in the ranker sub-classes files
      * wiz svmranker.cc , listnet.cc, listmle.cc and so on
      */
-    std::vector<double> rank(const Xapian::RankList & rl);
+    std::vector<double> rank(Xapian::RankList & rl);
 
     void learn_model();
 

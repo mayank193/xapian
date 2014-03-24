@@ -53,6 +53,8 @@ class XAPIAN_VISIBILITY_DEFAULT RankList {
     
     void set_qid(std::string qid1);
     
+    int get_num_of_feature_vectors();
+
     void set_rl(std::vector<FeatureVector> local_rl);
 
     void add_feature_vector(const Xapian::FeatureVector fv);//was & fv initially,check back later

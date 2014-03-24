@@ -123,6 +123,11 @@ RankList::set_qid(std::string qid1) {
     this->qid=qid1;
 }
 
+
+int
+RankList::get_num_of_feature_vectors(){
+	return this->rl.size();
+}
 void
 RankList::set_rl(std::vector<FeatureVector> local_rl) {
     this->rl=local_rl;
