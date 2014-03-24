@@ -48,15 +48,15 @@ class XAPIAN_VISIBILITY_DEFAULT EvalMetric {
     /* override this in the sub-class like MAP, NDCG, MRR, etc*/
 
     // precision @n
-    double precision(const Xapian::RankList & rl, int n);
+    double precision(Xapian::RankList & rl, int n);
 
-    double average_precision(const Xapian::RankList & rl);
+    double average_precision(Xapian::RankList & rl);
 
-    double map_score(const Xapian::RankList & rl);
+    double map_score( vector <Xapian::RankList> & rl);
 
     double discount_cumulative_gain(vector <Xapian::FeatureVector> fv);
     
-    double ndcg_score(const Xapian::RankList & rl);
+    double ndcg_score(vector<Xapian::RankList> & rl);
 
     double score(const Xapian::RankList & rl);
 
