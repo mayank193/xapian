@@ -309,16 +309,19 @@ write_to_file(std::vector<Xapian::RankList> list_rlist) {
 	 */
 	std::vector<FeatureVector> rl = rlist.get_data();
     int size_rl = rl.size();
-	// print the size of the rlist so that later we know how many featureVector to scan for this particular rlist.
-	train_file << size_rl << " " << rlist.get_qid() << endl;
+
 	for(int j=0; j < size_rl; ++j) {
 	    FeatureVector fv = rl[j];
 	    // now save this feature vector fv to the file
-	    train_file << fv.get_score() << " " << fv.get_fcount() << " " << fv.get_did()<<endl;// << " ";
-	    train_file << fv.get_label(); // relevance label should be included according to original one.
-        for(int k=1; k < 20; ++k) {    // the value of fv.fcount has been hard-coded to 20 since it is not defined yet. And also k should start from 1
-		train_file << " " << fv.get_feature_value(k);
-	    }
+	    train_file << fv.get_label();
+        train_file << " qid:" << rlist.get_qid();
+        map<int,double> featurevalues = fv.get_fvals();
+
+        for (std::map<int,double>::iterator it = featurevalues.begin(); it != featurevalues.end(); ++it){
+            train_file << " " << it->first << ":" << it->second;
+        }
+
+        train_file << " #docid = " << fv.get_did();
 	    train_file << endl;
 	}
     }
