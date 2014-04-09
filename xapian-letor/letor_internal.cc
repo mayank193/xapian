@@ -32,6 +32,7 @@
 #include "ranker.h"
 #include "svmranker.h"
 #include "letor_features.h"
+#include "ranklist.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -445,52 +446,58 @@ Letor::Internal::load_ranklist_from_file(const char *filename){
      * each FeatureVector has the following data: double score, int fcount, string did, map<int, double> fvals
      * each line: double int string 1:double 2:double 3:double....
      */
+    cout << __FILE__ << ":" << __LINE__ << endl;
+    string prev_qid;
+    string curr_qid;
+    vector<Xapian::RankList>::iterator rlist;
     while(train_file.peek() != EOF){
-        RankList rlist;
+        double label;
+        train_file >> label;     // label corresponds to relevance label.
+        cout <<"Label is: " << label << endl;
+        train_file.ignore(5);    // Ignore 5 characters " qid:"
+        train_file >> curr_qid;
+        cout << "Query id is: "<< curr_qid <<endl; 
+        train_file.ignore(1);    // Ignore character ' '
+        
+        char feature_index[256];
+        char feature_value[256];
+        FeatureVector fv;
+        fv.set_label(label);
 
-        int size_rl;            // size of the ranklist corresponding to a queryid
-        train_file >> size_rl;
-        train_file.ignore();
+        while(train_file.get() != '#'){
+            train_file.unget();     // decreases the current location in the stream by one character
 
-        string qid;
-        train_file >> qid;
-        rlist.set_qid(qid);
+            train_file.get(feature_index,256,':');
+            int feature_index_int = atoi(feature_index);
+            train_file.ignore(1);   // Ignore character ':'
 
-        for(int j=0; j < size_rl; ++j) {
-            FeatureVector fv;
-            
-            // now save this feature vector fv to the file
-            double score;
-            train_file >> score;     // score corresponds to score of a particular document
-            fv.set_score(score);
-            train_file.ignore();
-            
-            int fcount;
-            train_file >> fcount;    // fcount corresponds to number of features.
-            fv.set_fcount(fcount);
-            train_file.ignore();
-            
-            Xapian::docid did;
-            train_file >> did;       //did corresponds to document id.
-            train_file.ignore();
-            fv.set_did(did);
-            
-            double label;
-            train_file >> label;     // label corresponds to relevance label.
-            fv.set_label(label);
-            
-            for(int k = 1; k < 20; ++k) {    // the value of fv.fcount has been hard-coded to 20 since it is not defined yet. And also k should start from 1
-                train_file.ignore();
-                double feature_value;
-                train_file >> feature_value;
-                fv.set_feature_value(k,feature_value);
+            train_file.get(feature_value,256,' ');
+            double feature_value_double = atof(feature_value);
+            train_file.ignore(1);   // Ignore character ' '
+
+            fv.set_feature_value(feature_index_int,feature_value_double);
+            cout << feature_index_int << ":" << feature_value_double << endl;
+
+        } 
+        cout << "#docid = ";
+        train_file.ignore(8);    // Ignore 8 characters "docid = "
+        // '#' has already been read checking while condition.
+        Xapian::docid document_id;
+        train_file >> document_id;
+        cout << document_id << endl;
+        fv.set_did(document_id);
+
+        if(curr_qid != prev_qid){
+            if(prev_qid != ""){
+                RankList o;
+                o.set_qid(curr_qid);
+                ranklist.push_back(o);
             }
-
-            train_file.ignore();
-            rlist.add_feature_vector(fv);
+            prev_qid = curr_qid;
+            cout << __FILE__ << ":" << __LINE__ << endl;
         }
-
-        ranklist.push_back(rlist);
+        train_file.ignore();
+        ranklist[ranklist.size()-1].add_feature_vector(fv);
     }
 
     train_file.close();
